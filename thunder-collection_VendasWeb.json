@@ -1,0 +1,378 @@
+{
+    "clientName": "Thunder Client",
+    "collectionName": "VendasWeb",
+    "collectionId": "88f33c6d-4d03-4124-a82c-982a03ee7b57",
+    "dateExported": "2024-10-09T22:04:12.369Z",
+    "version": "1.2",
+    "folders": [
+        {
+            "_id": "52d5e2fc-1b22-4818-b726-c55a449c32e7",
+            "name": "Usuario",
+            "containerId": "",
+            "created": "2024-10-09T18:35:26.758Z",
+            "sortNum": 10000
+        },
+        {
+            "_id": "70e7d616-659d-4c89-bea8-09cfecd0343b",
+            "name": "Categoria",
+            "containerId": "",
+            "created": "2024-10-09T18:35:51.871Z",
+            "sortNum": 20000
+        },
+        {
+            "_id": "6875f49a-aa7f-436f-b5cd-ae692c5fea1b",
+            "name": "Produto",
+            "containerId": "",
+            "created": "2024-10-09T19:34:00.660Z",
+            "sortNum": 30000
+        },
+        {
+            "_id": "beb88788-7123-4a05-a07a-ca9c4fbf4cba",
+            "name": "Pedido",
+            "containerId": "",
+            "created": "2024-10-09T21:06:43.332Z",
+            "sortNum": 40000
+        },
+        {
+            "_id": "8ae7ccac-ee90-46ee-9bd9-eb237970ea28",
+            "name": "ItemPedido",
+            "containerId": "",
+            "created": "2024-10-09T21:48:54.413Z",
+            "sortNum": 50000
+        }
+    ],
+    "requests": [
+        {
+            "_id": "898f22f8-a372-494a-9c6f-9eb720149366",
+            "colId": "88f33c6d-4d03-4124-a82c-982a03ee7b57",
+            "containerId": "52d5e2fc-1b22-4818-b726-c55a449c32e7",
+            "name": "http://localhost:3000/usuario/",
+            "url": "http://localhost:3000/api/usuario/usuarios",
+            "method": "GET",
+            "sortNum": 10000,
+            "created": "2024-10-09T18:18:15.827Z",
+            "modified": "2024-10-09T18:18:15.827Z",
+            "headers": []
+        },
+        {
+            "_id": "331f59fe-3a9a-4826-8c90-567a3ec11bb4",
+            "colId": "88f33c6d-4d03-4124-a82c-982a03ee7b57",
+            "containerId": "52d5e2fc-1b22-4818-b726-c55a449c32e7",
+            "name": "http://localhost:3000/api/usuario/4",
+            "url": "http://localhost:3000/api/usuario/1",
+            "method": "DELETE",
+            "sortNum": 20000,
+            "created": "2024-10-09T18:18:27.739Z",
+            "modified": "2024-10-09T18:46:27.208Z",
+            "headers": []
+        },
+        {
+            "_id": "17c3b03a-7b34-4efa-9639-c287890266bf",
+            "colId": "88f33c6d-4d03-4124-a82c-982a03ee7b57",
+            "containerId": "52d5e2fc-1b22-4818-b726-c55a449c32e7",
+            "name": "http://localhost:3000/api/usuario/",
+            "url": "http://localhost:3000/api/usuario/",
+            "method": "POST",
+            "sortNum": 50000,
+            "created": "2024-10-09T18:18:55.061Z",
+            "modified": "2024-10-09T18:48:28.382Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"nome\": \"João M\",\n  \"cpf\": \"1111111\",\n  \"email\": \"joao@email.com\",\n  \"senha\": \"654\",\n  \"endereco\": \"Rua B\",\n  \"dt_nascimento\":\"01-01-2000\",\n  \"sexo\": \"M\",\n  \"telefone\": \"51996111111\",\n  \"status\": \"Cliente\"\n  \n}",
+                "form": []
+            }
+        },
+        {
+            "_id": "0a71f075-4d2d-4cb0-8ea1-c59d9ea75f7c",
+            "colId": "88f33c6d-4d03-4124-a82c-982a03ee7b57",
+            "containerId": "52d5e2fc-1b22-4818-b726-c55a449c32e7",
+            "name": "http://localhost:3000/usuario/",
+            "url": "http://localhost:3000/api/usuario/usuarios",
+            "method": "GET",
+            "sortNum": 60000,
+            "created": "2024-10-09T18:19:02.515Z",
+            "modified": "2024-10-09T18:19:02.515Z",
+            "headers": []
+        },
+        {
+            "_id": "68d19808-6939-43e2-9e30-c5f73547f863",
+            "colId": "88f33c6d-4d03-4124-a82c-982a03ee7b57",
+            "containerId": "52d5e2fc-1b22-4818-b726-c55a449c32e7",
+            "name": "http://localhost:3000/api/usuario/1",
+            "url": "http://localhost:3000/api/usuario/1",
+            "method": "PUT",
+            "sortNum": 70000,
+            "created": "2024-10-09T18:19:20.539Z",
+            "modified": "2024-10-09T18:19:20.539Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"nome\": \"Maria T\",\n  \"cpf\": \"321654\",\n  \"email\": \"maria@email.com\",\n  \"senha\": \"654\",\n  \"endereco\": \"Rua A\",\n  \"dt_nascimento\":\"01-01-2000\",\n  \"sexo\": \"F\",\n  \"telefone\": \"51996000000\",\n  \"status\": \"Cliente\"\n  \n}",
+                "form": []
+            }
+        },
+        {
+            "_id": "2b02d047-72f1-4e87-ab35-c094c7ab1c20",
+            "colId": "88f33c6d-4d03-4124-a82c-982a03ee7b57",
+            "containerId": "70e7d616-659d-4c89-bea8-09cfecd0343b",
+            "name": "Get Categoria",
+            "url": "http://localhost:3000/api/categoria/categorias",
+            "method": "GET",
+            "sortNum": 80000,
+            "created": "2024-10-09T18:36:09.916Z",
+            "modified": "2024-10-09T18:36:55.763Z",
+            "headers": []
+        },
+        {
+            "_id": "c941cd5a-06b6-4be8-a87a-94bbfcbb5aaa",
+            "colId": "88f33c6d-4d03-4124-a82c-982a03ee7b57",
+            "containerId": "70e7d616-659d-4c89-bea8-09cfecd0343b",
+            "name": "Post Categoria",
+            "url": "http://localhost:3000/api/categoria/",
+            "method": "POST",
+            "sortNum": 90000,
+            "created": "2024-10-09T18:37:19.179Z",
+            "modified": "2024-10-09T18:40:46.804Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"nome\": \"Hubs\"\n}",
+                "form": []
+            }
+        },
+        {
+            "_id": "f8da4600-eda8-46d2-9c31-28759cad34a5",
+            "colId": "88f33c6d-4d03-4124-a82c-982a03ee7b57",
+            "containerId": "70e7d616-659d-4c89-bea8-09cfecd0343b",
+            "name": "Put Categoria",
+            "url": "http://localhost:3000/api/categoria/2",
+            "method": "PUT",
+            "sortNum": 110000,
+            "created": "2024-10-09T18:39:14.074Z",
+            "modified": "2024-10-09T18:40:01.615Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"nome\": \"Fontes ATX\"\n}",
+                "form": []
+            }
+        },
+        {
+            "_id": "74c29e7e-cf53-4142-8050-60657e80c6b6",
+            "colId": "88f33c6d-4d03-4124-a82c-982a03ee7b57",
+            "containerId": "70e7d616-659d-4c89-bea8-09cfecd0343b",
+            "name": "Delete Categoria",
+            "url": "http://localhost:3000/api/categoria/3",
+            "method": "DELETE",
+            "sortNum": 120000,
+            "created": "2024-10-09T18:41:05.227Z",
+            "modified": "2024-10-09T18:41:19.271Z",
+            "headers": []
+        },
+        {
+            "_id": "c945d646-5d65-40fb-b76e-736a14bb84d8",
+            "colId": "88f33c6d-4d03-4124-a82c-982a03ee7b57",
+            "containerId": "6875f49a-aa7f-436f-b5cd-ae692c5fea1b",
+            "name": "Post Produto",
+            "url": "http://localhost:3000/api/produto/",
+            "method": "POST",
+            "sortNum": 130000,
+            "created": "2024-10-09T19:34:12.971Z",
+            "modified": "2024-10-09T19:54:10.187Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"nome\": \"Fonte 400 Watts\",\n  \"descricao\": \"Fonte ATX\",\n  \"preco\": 100,\n  \"categoriaId\": 2,\n  \"usuarioId\": 2,\n  \"imagem_url\": \"imagem1\"\n  } ",
+                "form": []
+            }
+        },
+        {
+            "_id": "a04076be-9270-45bb-a2ca-b27cefea3f62",
+            "colId": "88f33c6d-4d03-4124-a82c-982a03ee7b57",
+            "containerId": "6875f49a-aa7f-436f-b5cd-ae692c5fea1b",
+            "name": "Get Produtos",
+            "url": "http://localhost:3000/api/produto/produtos",
+            "method": "GET",
+            "sortNum": 140000,
+            "created": "2024-10-09T19:44:42.161Z",
+            "modified": "2024-10-09T19:45:05.088Z",
+            "headers": []
+        },
+        {
+            "_id": "3236abf9-ab81-4268-b315-e8abfc26fbdc",
+            "colId": "88f33c6d-4d03-4124-a82c-982a03ee7b57",
+            "containerId": "6875f49a-aa7f-436f-b5cd-ae692c5fea1b",
+            "name": "Put Produto",
+            "url": "http://localhost:3000/api/produto/10",
+            "method": "PUT",
+            "sortNum": 150000,
+            "created": "2024-10-09T19:55:15.261Z",
+            "modified": "2024-10-09T19:57:23.977Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"nome\": \"Fonte 500 Watts\",\n  \"descricao\": \"Fonte ATX\",\n  \"preco\": 100,\n  \"categoriaId\": 2,\n  \"usuarioId\": 2,\n  \"imagem_url\": \"imagem1\"\n  } \n",
+                "form": []
+            }
+        },
+        {
+            "_id": "809756f0-b30a-42e8-a741-492cec75d433",
+            "colId": "88f33c6d-4d03-4124-a82c-982a03ee7b57",
+            "containerId": "6875f49a-aa7f-436f-b5cd-ae692c5fea1b",
+            "name": "Delete Produto",
+            "url": "http://localhost:3000/api/produto/10",
+            "method": "DELETE",
+            "sortNum": 160000,
+            "created": "2024-10-09T20:04:28.385Z",
+            "modified": "2024-10-09T20:04:42.605Z",
+            "headers": []
+        },
+        {
+            "_id": "e56aa239-be9e-44bd-a39a-06a30bf16b3e",
+            "colId": "88f33c6d-4d03-4124-a82c-982a03ee7b57",
+            "containerId": "beb88788-7123-4a05-a07a-ca9c4fbf4cba",
+            "name": "Post Pedido",
+            "url": "http://localhost:3000/api/pedido/",
+            "method": "POST",
+            "sortNum": 170000,
+            "created": "2024-10-09T21:06:54.672Z",
+            "modified": "2024-10-09T22:00:51.674Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"quantidade\": 2,\n  \"valorTotal\": 200,\n  \"produtoId\":11,\n  \"usuarioId\": 3\n}",
+                "form": []
+            }
+        },
+        {
+            "_id": "926fc112-7e0d-4e06-aad3-d6636b13a176",
+            "colId": "88f33c6d-4d03-4124-a82c-982a03ee7b57",
+            "containerId": "beb88788-7123-4a05-a07a-ca9c4fbf4cba",
+            "name": "Get Pedidos",
+            "url": "http://localhost:3000/api/pedido/pedidos",
+            "method": "GET",
+            "sortNum": 180000,
+            "created": "2024-10-09T21:13:48.391Z",
+            "modified": "2024-10-09T21:17:05.975Z",
+            "headers": []
+        },
+        {
+            "_id": "9d5eff8a-e0f3-43d1-ba72-642057a8cdd0",
+            "colId": "88f33c6d-4d03-4124-a82c-982a03ee7b57",
+            "containerId": "beb88788-7123-4a05-a07a-ca9c4fbf4cba",
+            "name": "Get pedido por UsuarioId",
+            "url": "http://localhost:3000/api/pedido/usuario/3",
+            "method": "GET",
+            "sortNum": 190000,
+            "created": "2024-10-09T21:16:45.335Z",
+            "modified": "2024-10-09T21:16:56.752Z",
+            "headers": []
+        },
+        {
+            "_id": "e96abaf7-e830-44b4-9bef-818aac83131b",
+            "colId": "88f33c6d-4d03-4124-a82c-982a03ee7b57",
+            "containerId": "beb88788-7123-4a05-a07a-ca9c4fbf4cba",
+            "name": "Put Atualiza Pedido",
+            "url": "http://localhost:3000/api/pedido/1",
+            "method": "PUT",
+            "sortNum": 200000,
+            "created": "2024-10-09T21:17:49.468Z",
+            "modified": "2024-10-09T21:18:44.581Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"quantidade\": 2,\n  \"valorTotal\": 100,\n  \"produtoId\":11,\n  \"usuarioId\": 3\n}",
+                "form": []
+            }
+        },
+        {
+            "_id": "bd095401-f890-4594-9d4e-1190e3b0dfd3",
+            "colId": "88f33c6d-4d03-4124-a82c-982a03ee7b57",
+            "containerId": "beb88788-7123-4a05-a07a-ca9c4fbf4cba",
+            "name": "Delete Pedido",
+            "url": "http://localhost:3000/api/pedido/1",
+            "method": "DELETE",
+            "sortNum": 210000,
+            "created": "2024-10-09T21:19:14.603Z",
+            "modified": "2024-10-09T21:19:27.849Z",
+            "headers": []
+        },
+        {
+            "_id": "157e010c-24db-4adb-8133-966748740e8c",
+            "colId": "88f33c6d-4d03-4124-a82c-982a03ee7b57",
+            "containerId": "8ae7ccac-ee90-46ee-9bd9-eb237970ea28",
+            "name": "Get ItemPedido",
+            "url": "http://localhost:3000/api/itemPedido/itemPedidos",
+            "method": "GET",
+            "sortNum": 220000,
+            "created": "2024-10-09T21:49:07.428Z",
+            "modified": "2024-10-09T21:49:34.953Z",
+            "headers": []
+        },
+        {
+            "_id": "e0fc91a2-02c2-4bbf-b83f-dae8ed18f67d",
+            "colId": "88f33c6d-4d03-4124-a82c-982a03ee7b57",
+            "containerId": "8ae7ccac-ee90-46ee-9bd9-eb237970ea28",
+            "name": "Post ItemPedido",
+            "url": "http://localhost:3000/api/itemPedido/",
+            "method": "POST",
+            "sortNum": 230000,
+            "created": "2024-10-09T21:50:05.442Z",
+            "modified": "2024-10-09T22:02:23.423Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"quantidade\": 1,\n  \"preco_unitario\": 100,\n  \"pedidoId\": 3,\n  \"produtoId\":11\n  \n}",
+                "form": []
+            }
+        },
+        {
+            "_id": "0773f614-ca24-4f57-9657-8474ddff294f",
+            "colId": "88f33c6d-4d03-4124-a82c-982a03ee7b57",
+            "containerId": "8ae7ccac-ee90-46ee-9bd9-eb237970ea28",
+            "name": "Put Atualizar ItemPedido",
+            "url": "http://localhost:3000/api/itemPedido/1",
+            "method": "PUT",
+            "sortNum": 240000,
+            "created": "2024-10-09T21:56:43.147Z",
+            "modified": "2024-10-09T21:57:19.069Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"quantidade\": 2,\n  \"preco_unitario\": 100,\n  \"pedidoId\": 2,\n  \"produtoId\":11\n  \n}",
+                "form": []
+            }
+        },
+        {
+            "_id": "32751a14-a055-49cd-8b5e-ee7084d75a25",
+            "colId": "88f33c6d-4d03-4124-a82c-982a03ee7b57",
+            "containerId": "8ae7ccac-ee90-46ee-9bd9-eb237970ea28",
+            "name": "Post ItemPedido Copy",
+            "url": "http://localhost:3000/api/itemPedido/",
+            "method": "POST",
+            "sortNum": 240000,
+            "created": "2024-10-09T22:02:07.011Z",
+            "modified": "2024-10-09T22:02:07.011Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"quantidade\": 1,\n  \"preco_unitario\": 100,\n  \"pedidoId\": 2,\n  \"produtoId\":11\n  \n}",
+                "form": []
+            }
+        },
+        {
+            "_id": "7e81cb4c-d654-427e-abde-115ff98754db",
+            "colId": "88f33c6d-4d03-4124-a82c-982a03ee7b57",
+            "containerId": "8ae7ccac-ee90-46ee-9bd9-eb237970ea28",
+            "name": "Delete ItemPedido",
+            "url": "http://localhost:3000/api/itemPedido/2",
+            "method": "DELETE",
+            "sortNum": 260000,
+            "created": "2024-10-09T22:03:01.145Z",
+            "modified": "2024-10-09T22:03:45.700Z",
+            "headers": []
+        }
+    ],
+    "ref": "kh3M6X7j4rFr6PXDzwD6srMuw-FkdLufEjM7zDiQm38iDodjzoBpoSZxlqv0jjH8l9HRepFdk_K_0lP4xGrSyA"
+}
