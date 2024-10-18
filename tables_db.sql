@@ -9,7 +9,7 @@ CREATE TABLE usuario
  dt_nascimento DATE NOT NULL,
  sexo CHAR(10) NOT NULL,
  telefone VARCHAR(30) NOT NULL,  
- status VARCHAR(30) 
+ tipo VARCHAR(30) 
 );
 
 
@@ -56,6 +56,6 @@ ALTER TABLE produto ADD FOREIGN KEY(usuarioId) REFERENCES usuario (id)
 ALTER TABLE pedido ADD FOREIGN KEY(usuarioId) REFERENCES usuario (id)
 ALTER TABLE pedido ADD FOREIGN KEY(produtoId) REFERENCES produto (id)	
 
-alter table pedido Rename Column preco_unitario to valorTotal
+alter table usuario Rename Column status to tipo
 
 SELECT * FROM usuario ORDER BY id

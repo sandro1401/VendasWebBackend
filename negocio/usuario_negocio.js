@@ -17,7 +17,7 @@ async function addUsuario(usuarios) {
     }
 
     if (usuarios && usuarios.nome && usuarios.cpf && usuarios.email && usuarios.senha && usuarios.endereco 
-        && usuarios.dt_nascimento && usuarios.sexo && usuarios.telefone && usuarios.status ) {
+        && usuarios.dt_nascimento && usuarios.sexo && usuarios.telefone && usuarios.tipo ) {
         try {
             const usuario = await persistencia.addUsuario(usuarios)
             return usuario
@@ -94,7 +94,7 @@ async function buscarUsuarioPorId(id) {
 // Update
 async function atualizarUsuario(id, usuarios) {
     if (usuarios && usuarios.nome && usuarios.cpf && usuarios.email && usuarios.senha && usuarios.endereco 
-        && usuarios.dt_nascimento && usuarios.sexo && usuarios.telefone && usuarios.status ) {
+        && usuarios.dt_nascimento && usuarios.sexo && usuarios.telefone && usuarios.tipo ) {
         const usuarioAtualizado = await persistencia.atualizarUsuario(id, usuarios)
 
         if (!usuarioAtualizado) {
