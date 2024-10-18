@@ -5,12 +5,10 @@ const router = express.Router()
 
 
 router.post('/', controller.addProduto)
-router.get('/produtos', controller.buscarProduto) //listar
-router.get('/nome/:nome', controller.buscarProdutoPorNome)
-
-router.get('/categoria/:categoriaId', controller.buscarProdutoPorCategoria)
-
+router.get('/', controller.buscarProduto) 
 router.get('/:id', controller.buscarProdutoPorId)
+router.get('/nome/:nome', controller.buscarProdutoPorNome)
+router.get('/categoria/:categoriaId', controller.buscarProdutoPorCategoria)
 router.put('/:id', controller.atualizarProduto)
 router.delete('/:id', controller.deletarProduto)
 

@@ -5,11 +5,9 @@ const router = express.Router()
 
 
 router.post('/', controller.addCategoria)
-router.get('/categorias', controller.buscarCategoria) //listar
-router.get('/nome/:nome', controller.buscarCategoriaPorNome)
-
-
+router.get('/', controller.buscarCategoria) 
 router.get('/:id', controller.buscarCategoriaPorId)
+router.get('/categoria/:nome', controller.buscarCategoriaPorNome)
 router.put('/:id', controller.atualizarCategoria)
 router.delete('/:id', controller.deletarCategoria)
 
