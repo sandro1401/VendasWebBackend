@@ -12,7 +12,7 @@ async function addPedido(pedidos) {
     // }
 
     
-    if (pedidos && pedidos.quantidade && pedidos.valorTotal && pedidos.produtoId 
+    if (pedidos && pedidos.quantidade && pedidos.valorTotal && pedidos.data_Pedido && pedidos.produtoId 
         && pedidos.usuarioId) {
         try {
             const pedido = await persistencia.addPedido(pedidos)
@@ -89,7 +89,7 @@ async function buscarPedidoPorId(id) {
 
 // Update
 async function atualizarPedido(id, pedidos) {
-    if (pedidos && pedidos.quantidade && pedidos.valorTotal && pedidos.produtoId 
+    if (pedidos && pedidos.quantidade && pedidos.valorTotal  && pedidos.data_Pedido  && pedidos.produtoId 
         && pedidos.usuarioId) {
         const pedidoAtualizado = await persistencia.atualizarPedido(id, pedidos)
 

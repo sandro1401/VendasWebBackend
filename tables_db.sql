@@ -27,7 +27,8 @@ CREATE TABLE Pedido
 ( 
  id SERIAL PRIMARY KEY, 
  quantidade INT,  
- preco_unitario FLOAT NOT NULL,  
+ valorTotal FLOAT NOT NULL,
+ data_Pedido Date not Null,
  produtoId INT not null,
  usuarioId int not null
 );
