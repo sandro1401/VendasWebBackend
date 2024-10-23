@@ -95,7 +95,7 @@ async function atualizarProduto(id, produtos) {
 
         if (!produtoAtualizado) {
             let erro = new Error()
-            erro.message = "Usuário não encontrado."
+            erro.message = "Produto não encontrado."
             erro.status = 404
             throw erro
         }
@@ -116,7 +116,7 @@ async function deletarProduto(id) {
 
         if (!produtoDeletada) {
             const erro = new Error()
-            erro.message = "Usuário não encontrado"
+            erro.message = "Produto não encontrado"
             erro.status = 404
             throw erro
         }
@@ -131,7 +131,6 @@ module.exports = {
     buscarProduto,
     buscarProdutoPorNome,
     buscarProdutoPorCategoria,
-   
     buscarProdutoPorId,
     atualizarProduto,
     deletarProduto

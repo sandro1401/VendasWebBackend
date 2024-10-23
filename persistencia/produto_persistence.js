@@ -116,7 +116,6 @@ module.exports = {
     buscarProduto,
     buscarProdutoPorNome,
     buscarProdutoPorCategoria,
-   
     buscarProdutoPorId,
     atualizarProduto,
     deletarProduto,

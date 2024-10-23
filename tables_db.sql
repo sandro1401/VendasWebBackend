@@ -57,5 +57,6 @@ ALTER TABLE pedido ADD FOREIGN KEY(usuarioId) REFERENCES usuario (id)
 ALTER TABLE pedido ADD FOREIGN KEY(produtoId) REFERENCES produto (id)	
 
 alter table usuario Rename Column status to tipo
+alter table produto Rename Column descricao to marca
 
 SELECT * FROM usuario ORDER BY id
