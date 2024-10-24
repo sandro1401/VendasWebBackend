@@ -10,9 +10,13 @@ async function addUsuario(usuario) {
     client.connect()
    
     try {
-        const sql = `INSERT INTO usuario(nome, cpf, email, senha, endereco, dt_nascimento, sexo, telefone, tipo) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING *`
-        const values = [usuario.nome, usuario.cpf, usuario.email, usuario.senha, usuario.endereco, usuario.dt_nascimento, 
-            usuario.sexo, usuario.telefone, usuario.tipo ]
+        const sql = `INSERT INTO usuario(nome, cpf, email, senha,
+         cep, logradouro, unidade, bairro, cidade, estado,
+         dt_nascimento, sexo, telefone, tipo) 
+        VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14) RETURNING *`
+        const values = [usuario.nome, usuario.cpf, usuario.email, usuario.senha,
+             usuario.cep, usuario.logradouro, usuario.unidade, usuario.bairro, usuario.cidade, usuario.estado, 
+             usuario.dt_nascimento, usuario.sexo, usuario.telefone, usuario.tipo ]
         const usuarios = await client.query(sql, values)
 
         // console.log("teste", usuarios.rows[0])  
@@ -98,8 +102,11 @@ async function atualizarUsuario(id, usuario) {
     const client = new Client(conexao)
     client.connect()
     try {
-        const sql = `UPDATE usuario SET nome = $1, cpf = $2, email = $3, senha = $4, endereco = $5, dt_nascimento = $6, sexo = $7, telefone = $8, tipo = $9 WHERE id = $10 RETURNING *`
-        const values = [usuario.nome, usuario.cpf, usuario.email, usuario.senha, usuario.endereco, usuario.dt_nascimento, 
+        const sql = `UPDATE usuario SET nome = $1, cpf = $2, email = $3, senha = $4, cep = $5, logradouro = $6, unidade = $7, bairro = $8, cidade = $9, estado = $10, 
+        dt_nascimento = $11, sexo = $12, telefone = $13, tipo = $14 WHERE id = $15 RETURNING *`
+        const values = [usuario.nome, usuario.cpf, usuario.email, usuario.senha, 
+            usuario.cep, usuario.logradouro, usuario.unidade, usuario.bairro, usuario.cidade, 
+            usuario.estado, usuario.dt_nascimento, 
             usuario.sexo, usuario.telefone, usuario.tipo, id]
         const usuarioAtualizado = await client.query(sql, values)
 

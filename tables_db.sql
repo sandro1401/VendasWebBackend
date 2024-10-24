@@ -5,7 +5,12 @@ CREATE TABLE usuario
  cpf VARCHAR(30) NOT NULL,  
  email VARCHAR(50) NOT NULL,
  senha VARCHAR(50) NOT NULL,
- endereco varchar(50) Not null,
+ cep varchar(30) Not null,
+ logradouro varchar(30) Not null,
+ unidade varchar(30) Not null,
+ bairro varchar(30) Not null,
+ cidade varchar(30) Not null,
+ estado varchar(30) Not null,
  dt_nascimento DATE NOT NULL,
  sexo CHAR(10) NOT NULL,
  telefone VARCHAR(30) NOT NULL,  
@@ -57,7 +62,7 @@ ALTER TABLE produto ADD FOREIGN KEY(usuarioId) REFERENCES usuario (id)
 ALTER TABLE pedido ADD FOREIGN KEY(usuarioId) REFERENCES usuario (id)
 ALTER TABLE pedido ADD FOREIGN KEY(produtoId) REFERENCES produto (id)	
 
-alter table usuario Rename Column status to tipo
+
 alter table produto Rename Column descricao to marca
 
 SELECT * FROM usuario ORDER BY id

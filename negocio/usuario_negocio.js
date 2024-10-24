@@ -16,7 +16,8 @@ async function addUsuario(usuarios) {
         throw ({status: 400, message: "E-mail já registrado."})
     }
 
-    if (usuarios && usuarios.nome && usuarios.cpf && usuarios.email && usuarios.senha && usuarios.endereco 
+    if (usuarios && usuarios.nome && usuarios.cpf && usuarios.email && usuarios.senha 
+        && usuarios.cep && usuarios.logradouro && usuarios.unidade && usuarios.bairro && usuarios.cidade && usuarios.estado 
         && usuarios.dt_nascimento && usuarios.sexo && usuarios.telefone && usuarios.tipo ) {
         try {
             const usuario = await persistencia.addUsuario(usuarios)
@@ -93,7 +94,8 @@ async function buscarUsuarioPorId(id) {
 
 // Update
 async function atualizarUsuario(id, usuarios) {
-    if (usuarios && usuarios.nome && usuarios.cpf && usuarios.email && usuarios.senha && usuarios.endereco 
+    if (usuarios && usuarios.nome && usuarios.cpf && usuarios.email && usuarios.senha 
+        && usuarios.cep && usuarios.logradouro && usuarios.unidade && usuarios.bairro && usuarios.cidade && usuarios.estado  
         && usuarios.dt_nascimento && usuarios.sexo && usuarios.telefone && usuarios.tipo ) {
         const usuarioAtualizado = await persistencia.atualizarUsuario(id, usuarios)
 
