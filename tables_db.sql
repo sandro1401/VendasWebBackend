@@ -61,8 +61,6 @@ ALTER TABLE produto ADD FOREIGN KEY(categoriaId) REFERENCES categoria (id)
 ALTER TABLE produto ADD FOREIGN KEY(usuarioId) REFERENCES usuario (id)
 ALTER TABLE pedido ADD FOREIGN KEY(usuarioId) REFERENCES usuario (id)
 ALTER TABLE pedido ADD FOREIGN KEY(produtoId) REFERENCES produto (id)	
-
-
-alter table produto Rename Column descricao to marca
+ALTER TABLE itemPedido ADD COLUMN concluido BOOLEAN DEFAULT FALSE;
 
 SELECT * FROM usuario ORDER BY id

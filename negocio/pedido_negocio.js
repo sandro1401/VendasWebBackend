@@ -5,10 +5,10 @@ const persistencia = require('../persistencia/pedido_persistence')
 
 // Create
 async function addPedido(pedidos) {
-    //const usuarioPedido = await persistencia.buscarPedidoPorUsuarioId(pedidos.usuarioId)
+    // const usuarioPedido = await persistencia.buscarPedidoPorUsuarioId(pedidos.usuarioId)
    
-    // if (usuarioPedido) {
-    //     throw ({status: 400, message: "Pedido já existente."})
+    // if (!usuarioPedido) {
+    //     throw ({status: 400, message: "Usuário  inexistente."})
     // }
 
     

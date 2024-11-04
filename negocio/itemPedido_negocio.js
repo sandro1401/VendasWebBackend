@@ -5,7 +5,7 @@ const persistencia = require('../persistencia/itemPedido_persistence')
 
 // Create
 async function addItemPedido(itemPedidos) {
-    //const usuarioItemPedido = await persistencia.buscaritemPedidoPorUsuarioId(itemPedidos.usuarioId)
+    // const usuarioItemPedido = await persistencia.buscarItemPedidoPorUsuarioId(itemPedidos.usuarioId)
    
     // if (usuarioitemPedido) {
     //     throw ({status: 400, message: "itemPedido já existente."})
@@ -13,7 +13,7 @@ async function addItemPedido(itemPedidos) {
 
     
     if (itemPedidos && itemPedidos.quantidade && itemPedidos.preco_unitario && itemPedidos.pedidoId 
-        && itemPedidos.produtoId) {
+        && itemPedidos.produtoId && itemPedidos.concluido) {
         try {
             const itemPedido = await persistencia.addItemPedido(itemPedidos)
             return itemPedido
@@ -90,7 +90,7 @@ async function buscarItemPedidoPorId(id) {
 // Update
 async function atualizarItemPedido(id, itemPedidos) {
     if (itemPedidos && itemPedidos.quantidade && itemPedidos.preco_unitario && itemPedidos.pedidoId 
-        && itemPedidos.produtoId) {
+        && itemPedidos.produtoId && itemPedidos.concluido) {
         const itemPedidoAtualizado = await persistencia.atualizarItemPedido(id, itemPedidos)
 
         if (!itemPedidoAtualizado) {

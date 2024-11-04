@@ -10,9 +10,9 @@ async function addItemPedido(itemPedido) {
     client.connect()
    
     try {
-        const sql = `INSERT INTO itemPedido(quantidade, preco_unitario, pedidoId, produtoId
-        ) VALUES($1, $2, $3, $4) RETURNING *`
-        const values = [itemPedido.quantidade, itemPedido.preco_unitario, itemPedido.pedidoId, itemPedido.produtoId]
+        const sql = `INSERT INTO itemPedido(quantidade, preco_unitario, pedidoId, produtoId, concluido
+        ) VALUES($1, $2, $3, $4, $5) RETURNING *`
+        const values = [itemPedido.quantidade, itemPedido.preco_unitario, itemPedido.pedidoId, itemPedido.produtoId, itemPedido.concluido]
         const itemPedidos = await client.query(sql, values)
 
         // console.log("teste", ItemPedidos.rows[0])  
@@ -50,6 +50,19 @@ async function buscarItemPedidoPorPedidoId(pedidoId) {
         return pedidoItemPedido.rows[0]
     } catch (error) { throw error }
 }
+async function buscarItemPedidoPorUsuarioId(usuarioId) {
+    //const client = await connect()
+    const client = new Client(conexao)
+    client.connect()
+    try {
+        const sql = `SELECT * FROM itemPedido WHERE usuarioId = $1`
+        const values = [usuarioId]
+        const usuarioIdItemPedido = await client.query(sql, values)
+
+        client.end()
+        return usuarioIdItemPedido.rows[0]
+    } catch (error) { throw error }
+}
 
 async function buscarItemPedidoPorProdutoId(produtoId) {
     const client = await connect()
@@ -85,8 +98,8 @@ async function atualizarItemPedido(id, itemPedido) {
     const client = new Client(conexao)
     client.connect()
     try {
-        const sql = `UPDATE itemPedido SET quantidade = $1, preco_unitario = $2, pedidoId = $3, produtoId = $4 WHERE id = $5 RETURNING *`
-        const values = [itemPedido.quantidade, itemPedido.preco_unitario, itemPedido.pedidoId, itemPedido.produtoId, id]
+        const sql = `UPDATE itemPedido SET quantidade = $1, preco_unitario = $2, pedidoId = $3, produtoId = $4, cocluido = $5  WHERE id = $6 RETURNING *`
+        const values = [itemPedido.quantidade, itemPedido.preco_unitario, itemPedido.pedidoId, itemPedido.produtoId, itemPedido.concluido, id]
         const itemPedidoAtualizado = await client.query(sql, values)
 
         client.end()
@@ -118,5 +131,5 @@ module.exports = {
     buscarItemPedidoPorId,
     atualizarItemPedido,
     deletarItemPedido,
-    
+    buscarItemPedidoPorUsuarioId
 }
