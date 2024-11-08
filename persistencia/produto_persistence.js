@@ -94,6 +94,22 @@ async function atualizarProduto(id, produto) {
         return ProdutoAtualizado.rows[0]
     } catch (error) { throw error }
 }
+// Atualizar fotos
+async function atualizarImagemProduto(id, produto) {
+    // const client = await connect()
+    const client = new Client(conexao)
+    client.connect()
+    try {
+        const sql = `UPDATE  produto SET imagem_url = $1 WHERE id = $2 RETURNING *`
+        const value = [produto.imagem_url, id]
+
+        const imagemProduto = await client.query(sql, value)
+        client.release;
+        return imagemProduto.rows[0]
+    } catch (error) {
+        throw error;
+    }
+}
 
 // Delete
 async function deletarProduto(id) {
@@ -119,5 +135,6 @@ module.exports = {
     buscarProdutoPorId,
     atualizarProduto,
     deletarProduto,
+    atualizarImagemProduto,
     
 }

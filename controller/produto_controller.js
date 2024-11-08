@@ -5,7 +5,10 @@ const negocio = require('../negocio/produto_negocio')
 // Create
 async function addProduto(req, res) {
     const produto = req.body
-
+    if(req.files){
+        produto.imagem_url = req.files.map(file => file.path);
+       
+    }
     try {
         const produtos = await negocio.addProduto(produto)
         res.status(201).json(produtos)
@@ -95,6 +98,27 @@ async function atualizarProduto(req, res) {
     }
 }
 
+// Atualizar imagens
+async function atualizarImagemProduto(req, res) {
+    const id = req.params.id
+    const produto = req.body
+    if (req.files) {
+        produto.imagem_url = req.files.map(file => file.path); // Salve o nome do arquivo no campo 'foto'
+    }
+
+    try {
+        const produtos = await negocio.atualizarImagemProduto(id, produto)
+        res.status(200).json(produtos)
+    } catch (error) {
+        if (error.status) {
+            res.status(error.status).json(error)
+        } else {
+            res.status(500).json({message: "Erro interno!"})
+            console.log(error)
+        }
+    }
+}
+
 // Delete
 async function deletarProduto(req, res) {
     const id = req.params.id
@@ -118,5 +142,7 @@ module.exports = {
     buscarProdutoPorCategoria,  
     buscarProdutoPorId,
     atualizarProduto,
-    deletarProduto
+    deletarProduto,
+    atualizarImagemProduto
+    
 }
