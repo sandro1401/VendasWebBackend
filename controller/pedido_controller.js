@@ -4,16 +4,19 @@ const negocio = require('../negocio/pedido_negocio')
 
 // Create
 async function addPedido(req, res) {
+    const usuarioId = req.body.usuarioId;
     const pedido = req.body
+    console.log(usuarioId)
+    console.log(pedido)
 
     try {
-        const pedidos = await negocio.addPedido(pedido)
+        const pedidos = await negocio.addPedido(usuarioId, pedido)
         res.status(201).json(pedidos)
     } catch (error) {
         if (error.status) {
             res.status(error.status).json(error)
         } else {
-            res.status(402).json({message: "Erro ao adicionar Pedido!"})
+            res.status(500).json({message: "Erro ao adicionar Pedido!"})
         }
     }
 }
@@ -51,10 +54,10 @@ async function buscarPedidoPorProdutoId(req, res) {
 
 
 async function buscarPedidoPorUsuarioId(req, res) {
-    const usuario = req.params.usuarioId
+    const usuarioId = req.params.id
 
     try {
-        const usuarioPedido = await negocio.buscarPedidoPorUsuarioId(usuario)
+        const usuarioPedido = await negocio.buscarPedidoPorUsuarioId(usuarioId)
         res.status(200).json(usuarioPedido)
     } catch (error) {
         if (error.status) {

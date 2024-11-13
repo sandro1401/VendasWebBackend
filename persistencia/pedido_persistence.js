@@ -4,7 +4,7 @@ const { query } = require('express')
 
 
 // Create
-async function addPedido(pedido) {
+async function addPedido(usuarioId,pedido) {
     //const client = await connect()
     const client = new Client(conexao)
     client.connect()
@@ -12,7 +12,7 @@ async function addPedido(pedido) {
     try {
         const sql = `INSERT INTO pedido(quantidade, valorTotal, data_Pedido, produtoId, usuarioId
         ) VALUES($1, $2, $3, $4, $5) RETURNING *`
-        const values = [pedido.quantidade, pedido.valorTotal, pedido.data_Pedido, pedido.produtoId, pedido.usuarioId]
+        const values = [pedido.quantidade, pedido.valorTotal, pedido.data_Pedido, pedido.produtoId, usuarioId]
         const pedidos = await client.query(sql, values)
 
         // console.log("teste", Pedidos.rows[0])  
@@ -42,7 +42,9 @@ async function buscarPedidoPorUsuarioId(usuarioId) {
     const client = new Client(conexao)
     client.connect()
     try {
-        const sql = `SELECT * FROM pedido WHERE usuarioId = $1`
+        const sql = `SELECT usuario.id, pedido. * FROM pedido 
+        INNER JOIN usuario ON usuario.id = pedido.usuarioId 
+        WHERE pedido.usuarioId = $1`
         const values = [usuarioId]
         const UsuarioPedido = await client.query(sql, values)
 
@@ -85,8 +87,8 @@ async function atualizarPedido(id, pedido) {
     const client = new Client(conexao)
     client.connect()
     try {
-        const sql = `UPDATE pedido SET quantidade = $1, valorTotal = $2, data_pedido = $3,  produtoId = $4, usuarioId = $5 WHERE id = $6 RETURNING *`
-        const values = [pedido.quantidade, pedido.valorTotal, pedido.data_Pedido, pedido.produtoId, pedido.usuarioId, id]
+        const sql = `UPDATE pedido SET quantidade = $1, valorTotal = $2, data_pedido = $3,  produtoId = $4, WHERE id = $5 RETURNING *`
+        const values = [pedido.quantidade, pedido.valorTotal, pedido.data_Pedido, pedido.produtoId,  id]
         const pedidoAtualizado = await client.query(sql, values)
 
         client.end()

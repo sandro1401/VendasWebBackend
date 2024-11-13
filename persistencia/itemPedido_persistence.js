@@ -4,7 +4,7 @@ const { query } = require('express')
 
 
 // Create
-async function addItemPedido(itemPedido) {
+async function addItemPedido(pedidoId,itemPedido) {
     //const client = await connect()
     const client = new Client(conexao)
     client.connect()
@@ -12,7 +12,7 @@ async function addItemPedido(itemPedido) {
     try {
         const sql = `INSERT INTO itemPedido(quantidade, preco_unitario, pedidoId, produtoId, concluido
         ) VALUES($1, $2, $3, $4, $5) RETURNING *`
-        const values = [itemPedido.quantidade, itemPedido.preco_unitario, itemPedido.pedidoId, itemPedido.produtoId, itemPedido.concluido]
+        const values = [itemPedido.quantidade, itemPedido.preco_unitario, pedidoId, itemPedido.produtoId, itemPedido.concluido]
         const itemPedidos = await client.query(sql, values)
 
         // console.log("teste", ItemPedidos.rows[0])  

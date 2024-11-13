@@ -1,21 +1,22 @@
 const persistencia = require('../persistencia/pedido_persistence')
-
+const {buscarUsuarioPorId} = require('../persistencia/usuario_persistence')
 
 // Iniciando CRUD
 
 // Create
-async function addPedido(pedidos) {
-    // const usuarioPedido = await persistencia.buscarPedidoPorUsuarioId(pedidos.usuarioId)
-   
-    // if (!usuarioPedido) {
-    //     throw ({status: 400, message: "Usuário  inexistente."})
-    // }
+async function addPedido(usuarioId, pedidos) {
+    const id = await buscarUsuarioPorId(usuarioId)
+//    console.log(id)
+    if (!id) {
+        throw ({status: 400, message: "Usuário inexistente."})
+    }
 
     
-    if (pedidos && pedidos.quantidade && pedidos.valorTotal && pedidos.data_Pedido && pedidos.produtoId 
-        && pedidos.usuarioId) {
+    if (pedidos && pedidos.quantidade 
+         && pedidos.data_Pedido && pedidos.produtoId && usuarioId
+       ) {
         try {
-            const pedido = await persistencia.addPedido(pedidos)
+            const pedido = await persistencia.addPedido(usuarioId, pedidos)
             return pedido
         } catch (error) { throw error }
     } else {

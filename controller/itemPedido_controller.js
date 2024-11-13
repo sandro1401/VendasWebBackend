@@ -4,10 +4,11 @@ const negocio = require('../negocio/itemPedido_negocio')
 
 // Create
 async function addItemPedido(req, res) {
+    const pedidoId = re.params.id;
     const itemPedido = req.body
 
     try {
-        const itemPedidos = await negocio.addItemPedido(itemPedido)
+        const itemPedidos = await negocio.addItemPedido(pedidoId, itemPedido)
         res.status(201).json(itemPedidos)
     } catch (error) {
         if (error.status) {

@@ -1,24 +1,25 @@
 const persistencia = require('../persistencia/itemPedido_persistence')
-
+const {buscarPedidoPorId} = require('..//persistencia/pedido_persistence')
 
 // Iniciando CRUD
 
 // Create
-async function addItemPedido(itemPedidos) {
-    // const usuarioItemPedido = await persistencia.buscarItemPedidoPorUsuarioId(itemPedidos.usuarioId)
+async function addItemPedido(pedidoId, itemPedidos) {
+    const id = await buscarPedidoPorId(pedidoId)
    
-    // if (usuarioitemPedido) {
-    //     throw ({status: 400, message: "itemPedido já existente."})
-    // }
+    if (!id) {
+        throw ({status: 400, message: "Não exite  este Pedido."})
+    }
 
     
-    if (itemPedidos && itemPedidos.quantidade && itemPedidos.preco_unitario && itemPedidos.pedidoId 
+    if (itemPedidos && itemPedidos.quantidade && itemPedidos.preco_unitario
         && itemPedidos.produtoId && itemPedidos.concluido) {
         try {
-            const itemPedido = await persistencia.addItemPedido(itemPedidos)
+            const itemPedido = await persistencia.addItemPedido(pedidoId, itemPedidos)
             return itemPedido
         } catch (error) { throw error }
     } else {
+        console.log(itemPedidos)
         const erro = new Error()
         erro.message = "Todos os campos são obrigatórios."
         erro.status = 400

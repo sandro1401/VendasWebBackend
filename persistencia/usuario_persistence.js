@@ -89,10 +89,10 @@ async function buscarUsuarioPorId(id) {
     try {
         const sql = `SELECT * FROM usuario WHERE id = $1`
         const values = [id]
-        const idUsuario = await client.query(sql, values)
+        const usuarios = await client.query(sql, values)
 
         client.end()
-        return idUsuario.rows[0]
+        return usuarios.rows[0]
     } catch (error) { throw error }
 }
 

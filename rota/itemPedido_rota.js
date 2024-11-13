@@ -4,7 +4,7 @@ const controller = require('../controller/itemPedido_controller')
 const router = express.Router()
 
 
-router.post('/', controller.addItemPedido)
+router.post('/:id', controller.addItemPedido)
 router.get('/', controller.buscarItemPedido) 
 router.get('/:id', controller.buscarItemPedidoPorId)
 router.get('/produto/:produtoId', controller.buscarItemPedidoPorProdutoId)
