@@ -8,12 +8,11 @@ async function addPedido(usuarioId, pedidos) {
     const id = await buscarUsuarioPorId(usuarioId)
 //    console.log(id)
     if (!id) {
-        throw ({status: 400, message: "Usuário inexistente."})
+        throw ({status: 400, message: "Usuário não encontrado!"})
     }
 
     
-    if (pedidos && pedidos.quantidade 
-         && pedidos.data_Pedido && pedidos.produtoId && usuarioId
+    if (pedidos && pedidos.quantidade && pedidos.data_Pedido && pedidos.produtoId && usuarioId
        ) {
         try {
             const pedido = await persistencia.addPedido(usuarioId, pedidos)

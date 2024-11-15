@@ -16,7 +16,7 @@ async function addPedido(req, res) {
         if (error.status) {
             res.status(error.status).json(error)
         } else {
-            res.status(500).json({message: "Erro ao adicionar Pedido!"})
+            res.status(500).json({message: "Erro ao adicionar Pedido$!"})
         }
     }
 }
