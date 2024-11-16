@@ -24,7 +24,8 @@ CREATE TABLE itemPedido
  quantidade INT,  
  preco_unitario FLOAT NOT NULL,  
  pedidoId int NOT NULL,    
- produtoId INT not null 
+ produtoId INT not null,
+	concluido boolean default FALSE
 );
 
 
