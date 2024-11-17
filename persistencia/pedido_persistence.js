@@ -138,7 +138,7 @@ async function buscarPedidoPorId(id) {
 async function atualizarPedido(id, pedido) {
     const client = new Client(conexao);
     client.connect();
-  
+  // console.log(id, pedido)
     try {
       await client.query('BEGIN');
   
@@ -172,25 +172,23 @@ async function atualizarPedido(id, pedido) {
      
       const sqlItemPedido = `
         UPDATE itemPedido 
-        SET quantidade = $1, preco_unitario = $2, produtoId = $3, concluido = $4
-        WHERE pedidoId = $5 RETURNING *
-      `;
+            SET quantidade = $1, preco_unitario = $2, produtoId = $3, concluido = $4 
+            WHERE pedidoId = $5 
+            RETURNING *;
+        `;
       const valuesItemPedido = [
         pedido.quantidade, 
-        precoUnitario,     
+        precoUnitario, 
         pedido.produtoId,  
         false,             
-        id,                
+        id               
       ];
-  
+    //  console.log(valuesItemPedido)
       const itemPedidoAtualizado = await client.query(sqlItemPedido, valuesItemPedido);
   
-      // Se o item não existir, insira um novo
       if (itemPedidoAtualizado.rowCount === 0) {
-        const sqlInserirItem = `
-          INSERT INTO itemPedido (quantidade, preco_unitario, pedidoId, produtoId, concluido)
-          VALUES ($1, $2, $3, $4, $5) RETURNING *
-        `;
+        const sqlInserirItem = `INSERT INTO itemPedido(quantidade, preco_unitario, pedidoId, produtoId, concluido
+        ) VALUES($1, $2, $3, $4, $5) RETURNING *`;
         const valuesInserirItem = [
           pedido.quantidade,
           precoUnitario,

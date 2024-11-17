@@ -72,9 +72,12 @@ async function buscarItemPedidoPorProdutoId(produtoId) {
         const values = [produtoId]
         const produtoItemPedido = await client.query(sql, values)
 
-        client.end()
+      
         return produtoItemPedido.rows[0]
     } catch (error) { throw error }
+    finally{
+        client.end()
+    }
 }
 
 
@@ -94,18 +97,52 @@ async function buscarItemPedidoPorId(id) {
 
 // Update
 async function atualizarItemPedido(id, itemPedido) {
-    //const client = await connect()
-    const client = new Client(conexao)
-    client.connect()
+    const client = new Client(conexao);
+    await client.connect();
+    
     try {
-        const sql = `UPDATE itemPedido SET quantidade = $1, preco_unitario = $2, pedidoId = $3, produtoId = $4, cocluido = $5  WHERE id = $6 RETURNING *`
-        const values = [itemPedido.quantidade, itemPedido.preco_unitario, itemPedido.pedidoId, itemPedido.produtoId, itemPedido.concluido, id]
-        const itemPedidoAtualizado = await client.query(sql, values)
+        const sql = `
+            UPDATE itemPedido 
+            SET quantidade = $1, preco_unitario = $2, pedidoId = $3, produtoId = $4, concluido = $5 
+            WHERE id = $6 
+            RETURNING *;
+        `;
+        const values = [
+            itemPedido.quantidade, 
+            itemPedido.preco_unitario, 
+            itemPedido.pedidoId, 
+            itemPedido.produtoId, 
+            itemPedido.concluido, 
+            id
+        ];
 
-        client.end()
-        return itemPedidoAtualizado.rows[0]
-    } catch (error) { throw error }
+        const result = await client.query(sql, values);
+        const itemPedidoAtualizado = result.rows[0];
+
+        if (!itemPedidoAtualizado) {
+            throw new Error("Item Pedido não encontrado.");
+        }
+
+        const sqlAtualizarPedido = `
+            UPDATE pedido 
+            SET valorTotal = (
+                SELECT SUM(ip.quantidade * ip.preco_unitario) 
+                FROM itemPedido ip 
+                WHERE ip.pedidoId = $1
+            ) 
+            WHERE id = $1;
+        `;
+        await client.query(sqlAtualizarPedido, [itemPedido.pedidoId]);
+
+        return itemPedidoAtualizado;
+    } catch (error) {
+        console.error("Erro ao atualizar itemPedido:", error);
+        throw error;
+    } finally {
+        client.end();
+    }
 }
+
 
 // Delete
 async function deletarItemPedido(id) {

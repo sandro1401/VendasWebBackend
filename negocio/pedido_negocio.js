@@ -6,7 +6,7 @@ const {buscarUsuarioPorId} = require('../persistencia/usuario_persistence')
 // Create
 async function addPedido(usuarioId, pedidos) {
     const id = await buscarUsuarioPorId(usuarioId)
-//    console.log(id)
+//    console.log(id, pedidos)
     if (!id) {
         throw ({status: 400, message: "Usuário não encontrado!"})
     }
@@ -89,6 +89,9 @@ async function buscarPedidoPorId(id) {
 
 // Update
 async function atualizarPedido(id, pedidos) {
+    
+    // console.log(id, pedidos)
+    
     if (pedidos && pedidos.quantidade && pedidos.valorTotal  && pedidos.data_Pedido  && pedidos.produtoId 
         && pedidos.usuarioId) {
         const pedidoAtualizado = await persistencia.atualizarPedido(id, pedidos)
@@ -103,7 +106,7 @@ async function atualizarPedido(id, pedidos) {
         return pedidoAtualizado
     } else {
         let erro = new Error()
-        erro.message = "Todos os campos são obrigatórios."
+        erro.message = "Todos os campos são obrigatórios!."
         erro.status = 400
         throw erro
     }

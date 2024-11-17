@@ -91,9 +91,9 @@ async function buscarItemPedidoPorId(id) {
 // Update
 async function atualizarItemPedido(id, itemPedidos) {
     if (itemPedidos && itemPedidos.quantidade && itemPedidos.preco_unitario && itemPedidos.pedidoId 
-        && itemPedidos.produtoId && itemPedidos.concluido) {
+        && itemPedidos.produtoId && itemPedidos.concluido ) {
         const itemPedidoAtualizado = await persistencia.atualizarItemPedido(id, itemPedidos)
-
+           
         if (!itemPedidoAtualizado) {
             let erro = new Error()
             erro.message = "Item Pedido não encontrado."
