@@ -183,7 +183,7 @@ async function atualizarPedido(id, pedido) {
         false,             
         id               
       ];
-    //  console.log(valuesItemPedido)
+     console.log(valuesItemPedido)
       const itemPedidoAtualizado = await client.query(sqlItemPedido, valuesItemPedido);
   
       if (itemPedidoAtualizado.rowCount === 0) {
@@ -217,19 +217,32 @@ async function atualizarPedido(id, pedido) {
   
 // Delete
 async function deletarPedido(id) {
-    
-    //const client = await connect()
-    const client = new Client(conexao)
-    client.connect()
-    try {
-        const sql = `DELETE FROM pedido WHERE id = $1 RETURNING *`
-        const values = [id]
-        const pedidoDeletado = await client.query(sql, values)
+  const client = new Client(conexao);
+  client.connect();
+  console.log(id)
 
-        client.end()
-        return pedidoDeletado.rows[0]
-    } catch (error) { throw error }
+  try {
+      await client.query('BEGIN'); 
+
+      const sqlItens = `DELETE FROM itemPedido WHERE pedidoId = $1`;
+      const valuesItens = [id];
+      await client.query(sqlItens, valuesItens);
+
+      const sqlPedido = `DELETE FROM pedido WHERE id = $1 RETURNING *`;
+      const valuesPedido = [id];
+      const pedidoDeletado = await client.query(sqlPedido, valuesPedido);
+
+      await client.query('COMMIT'); 
+      client.end();
+
+      return pedidoDeletado.rows[0];
+  } catch (error) {
+      await client.query('ROLLBACK'); 
+      client.end();
+      throw error;
+  }
 }
+
 
 module.exports = {
     addPedido,
