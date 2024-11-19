@@ -133,87 +133,169 @@ async function buscarPedidoPorId(id) {
     }
 }
 
-
-// Update
 async function atualizarPedido(id, pedido) {
-    const client = new Client(conexao);
-    client.connect();
-  // console.log(id, pedido)
-    try {
-      await client.query('BEGIN');
-  
-      // Atualizar o pedido na tabela `pedido`
-      const sqlPedido = `
-        UPDATE pedido 
-        SET quantidade = $1, valorTotal = $2, data_pedido = $3, produtoId = $4, usuarioId = $5
-        WHERE id = $6 RETURNING *
-      `;
-      const valuesPedido = [
-        pedido.quantidade,
-        pedido.valorTotal,
-        pedido.data_Pedido,
-        pedido.produtoId,
-        pedido.usuarioId, // Adicionei o `usuarioId` para garantir consistência
-        id,
-      ];
-  
-      const pedidoAtualizado = await client.query(sqlPedido, valuesPedido);
-  
-      // Verificar se o produto foi alterado e buscar o novo preço unitário, se necessário
-      const sqlPrecoProduto = `SELECT preco FROM produto WHERE id = $1`;
-      const precoProdutoResult = await client.query(sqlPrecoProduto, [pedido.produtoId]);
-  
-      if (precoProdutoResult.rows.length === 0) {
-        throw new Error(`Produto com ID ${pedido.produtoId} não encontrado.`);
-      }
-  
-      const precoUnitario = precoProdutoResult.rows[0].preco;
-  
-     
-      const sqlItemPedido = `
-        UPDATE itemPedido 
-            SET quantidade = $1, preco_unitario = $2, produtoId = $3, concluido = $4 
-            WHERE pedidoId = $5 
-            RETURNING *;
-        `;
+  const client = new Client(conexao);
+  client.connect();
+
+  try {
+    await client.query('BEGIN');
+
+    // Atualizar o pedido na tabela `pedido` - não atualize o produtoId aqui
+    const sqlPedido = `
+      UPDATE pedido
+      SET quantidade = $1, valorTotal = $2, data_pedido = $3, usuarioId = $4
+      WHERE id = $5 RETURNING *
+    `;
+    const valuesPedido = [
+      pedido.quantidade,
+      pedido.valorTotal,
+      pedido.data_Pedido,
+      pedido.usuarioId,  // Assumindo que o pedido está correto
+      id,
+    ];
+
+    const pedidoAtualizado = await client.query(sqlPedido, valuesPedido);
+
+    // Verificar se o pedido foi atualizado corretamente
+    if (pedidoAtualizado.rowCount === 0) {
+      throw new Error(`Pedido com ID ${id} não encontrado.`);
+    }
+
+    // Atualiza ou insere os itens do pedido
+    const sqlItemPedidoAtualizar = `
+      UPDATE itemPedido
+      SET quantidade = $1, preco_unitario = $2, produtoId = $3, concluido = $4
+      WHERE pedidoId = $5 AND produtoId = $6 RETURNING *
+    `;
+    
+    // Atualizar os itens de pedido (caso existam)
+    for (const item of pedido.itens) {
+      const precoUnitario = item.preco_unitario;
       const valuesItemPedido = [
-        pedido.quantidade, 
-        precoUnitario, 
-        pedido.produtoId,  
-        false,             
-        id               
+        item.quantidade,
+        precoUnitario,
+        item.produtoId, 
+        item.concluido || false,  // Se não tiver, assume que está inconcluído
+        id,
+        item.produtoId, // Precisamos do produtoId para saber qual item atualizar
       ];
-     console.log(valuesItemPedido)
-      const itemPedidoAtualizado = await client.query(sqlItemPedido, valuesItemPedido);
-  
+
+      const itemPedidoAtualizado = await client.query(sqlItemPedidoAtualizar, valuesItemPedido);
+
+      // Se o item não foi encontrado, insira um novo
       if (itemPedidoAtualizado.rowCount === 0) {
-        const sqlInserirItem = `INSERT INTO itemPedido(quantidade, preco_unitario, pedidoId, produtoId, concluido
-        ) VALUES($1, $2, $3, $4, $5) RETURNING *`;
+        const sqlInserirItem = `
+          INSERT INTO itemPedido(quantidade, preco_unitario, pedidoId, produtoId, concluido)
+          VALUES($1, $2, $3, $4, $5) RETURNING *
+        `;
         const valuesInserirItem = [
-          pedido.quantidade,
+          item.quantidade,
           precoUnitario,
           id,
-          pedido.produtoId,
-          false,
+          item.produtoId,
+          item.concluido || false,
         ];
-  
+
         await client.query(sqlInserirItem, valuesInserirItem);
       }
-  
-      await client.query('COMMIT');
-  
-      return {
-        pedido: pedidoAtualizado.rows[0],
-        itemPedido: itemPedidoAtualizado.rows[0] || null,
-      };
-    } catch (error) {
-      await client.query('ROLLBACK');
-      console.error('Erro ao atualizar pedido:', error);
-      throw error;
-    } finally {
-      client.end();
     }
+
+    await client.query('COMMIT');
+
+    return {
+      pedido: pedidoAtualizado.rows[0],
+      itens: pedido.itens,  // Retorna os itens também
+    };
+  } catch (error) {
+    await client.query('ROLLBACK');
+    console.error('Erro ao atualizar pedido:', error);
+    throw error;
+  } finally {
+    client.end();
   }
+}
+
+
+// Update
+// async function atualizarPedido(id, pedido) {
+//     const client = new Client(conexao);
+//     client.connect();
+//   // console.log(id, pedido)
+//     try {
+//       await client.query('BEGIN');
+  
+//       // Atualizar o pedido na tabela `pedido`
+//       const sqlPedido = `
+//         UPDATE pedido 
+//         SET quantidade = $1, valorTotal = $2, data_pedido = $3, produtoId = $4, usuarioId = $5
+//         WHERE id = $6 RETURNING *
+//       `;
+//       const valuesPedido = [
+//         pedido.quantidade,
+//         pedido.valorTotal,
+//         pedido.data_Pedido,
+//         pedido.produtoId,
+//         pedido.usuarioId, // Adicionei o `usuarioId` para garantir consistência
+//         id,
+//       ];
+  
+//       const pedidoAtualizado = await client.query(sqlPedido, valuesPedido);
+  
+//       // Verificar se o produto foi alterado e buscar o novo preço unitário, se necessário
+//       const sqlPrecoProduto = `SELECT preco FROM produto WHERE id = $1`;
+//       const precoProdutoResult = await client.query(sqlPrecoProduto, [pedido.produtoId]);
+  
+//       if (precoProdutoResult.rows.length === 0) {
+//         throw new Error(`Produto com ID ${pedido.produtoId} não encontrado.`);
+//       }
+  
+//       const precoUnitario = precoProdutoResult.rows[0].preco;
+  
+     
+//       const sqlItemPedido = `
+//         UPDATE itemPedido 
+//             SET quantidade = $1, preco_unitario = $2, produtoId = $3, concluido = $4 
+//             WHERE pedidoId = $5 
+//             RETURNING *;
+//         `;
+//       const valuesItemPedido = [
+//         pedido.quantidade, 
+//         precoUnitario, 
+//         pedido.produtoId,  
+//         false,             
+//         id               
+//       ];
+//      console.log(valuesItemPedido)
+//       const itemPedidoAtualizado = await client.query(sqlItemPedido, valuesItemPedido);
+  
+//       if (itemPedidoAtualizado.rowCount === 0) {
+//         const sqlInserirItem = `INSERT INTO itemPedido(quantidade, preco_unitario, pedidoId, produtoId, concluido
+//         ) VALUES($1, $2, $3, $4, $5) RETURNING *`;
+//         const valuesInserirItem = [
+//           pedido.quantidade,
+//           precoUnitario,
+//           id,
+//           pedido.produtoId,
+//           false,
+//         ];
+  
+//         await client.query(sqlInserirItem, valuesInserirItem);
+//       }
+  
+//       await client.query('COMMIT');
+  
+//       return {
+//         pedido: pedidoAtualizado.rows[0],
+//         itemPedido: itemPedidoAtualizado.rows[0] || null,
+//       };
+//     } catch (error) {
+//       await client.query('ROLLBACK');
+//       console.error('Erro ao atualizar pedido:', error);
+//       throw error;
+//     } finally {
+//       client.end();
+//     }
+//   }
   
 // Delete
 async function deletarPedido(id) {
