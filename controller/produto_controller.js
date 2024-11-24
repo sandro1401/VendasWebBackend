@@ -1,14 +1,17 @@
 const negocio = require('../negocio/produto_negocio')
+const pedido = require('../controller/pedido_controller')
 
 // Iniciando CRUD
 
 // Create
 async function addProduto(req, res) {
     const produto = req.body
-    if(req.files){
-        produto.imagem_url = req.files.map(file => file.path);
-       
+
+  
+    if (req.processedImages && req.processedImages.length > 0) {
+        produto.imagem_url = req.processedImages; // Salva o array de imagens no produto
     }
+
     try {
         const produtos = await negocio.addProduto(produto)
         res.status(201).json(produtos)
@@ -81,49 +84,75 @@ async function buscarProdutoPorId(req, res) {
     }
 }
 
-// Update
+// Atualizar Produto com Imagem
 async function atualizarProduto(req, res) {
-    const id = req.params.id
-    const produto = req.body
+    const id = req.params.id;
+    const produto = req.body;
+    console.log(produto)
+
+    // Verifica se há arquivos no upload
+    if (req.processedImages && req.processedImages.length > 0) {
+        produto.imagem_url = req.processedImages;}
+        console.log(produto.imagem_url)
 
     try {
-        const produtoAtualizado = await negocio.atualizarProduto(id, produto)
-        res.status(200).json(produtoAtualizado)
+        const produtoAtualizado = await negocio.atualizarProduto(id, produto);
+        res.status(200).json(produtoAtualizado);
     } catch (error) {
         if (error.status) {
-            res.status(error.status).json(error)
+            res.status(error.status).json(error);
         } else {
-            res.status(500).json({message: "Erro ao atualizar!"})
+            res.status(500).json({ message: "Erro ao atualizar o produto!" });
         }
     }
 }
+
+
+
+
+// Update
+// async function atualizarProduto(req, res) {
+//     const id = req.params.id
+//     const produto = req.body
+
+//     try {
+//         const produtoAtualizado = await negocio.atualizarProduto(id, produto)
+//         res.status(200).json(produtoAtualizado)
+//     } catch (error) {
+//         if (error.status) {
+//             res.status(error.status).json(error)
+//         } else {
+//             res.status(500).json({message: "Erro ao atualizar!"})
+//         }
+//     }
+// }
 
 // Atualizar imagens
-async function atualizarImagemProduto(req, res) {
-    const id = req.params.id
-    const produto = req.body
-    if (req.files) {
-        produto.imagem_url = req.files.map(file => file.path); // Salve o nome do arquivo no campo 'foto'
-    }
+// async function atualizarImagemProduto(req, res) {
+//     const id = req.params.id
+//     const produto = req.body
+//     if (req.files) {
+//         produto.imagem_url = req.files.map(file => file.path); // Salve o nome do arquivo no campo 'foto'
+//     }
 
-    try {
-        const produtos = await negocio.atualizarImagemProduto(id, produto)
-        res.status(200).json(produtos)
-    } catch (error) {
-        if (error.status) {
-            res.status(error.status).json(error)
-        } else {
-            res.status(500).json({message: "Erro interno!"})
-            console.log(error)
-        }
-    }
-}
+//     try {
+//         const produtos = await negocio.atualizarImagemProduto(id, produto)
+//         res.status(200).json(produtos)
+//     } catch (error) {
+//         if (error.status) {
+//             res.status(error.status).json(error)
+//         } else {
+//             res.status(500).json({message: "Erro interno!"})
+//             console.log(error)
+//         }
+//     }
+// }
 
 // Delete
 async function deletarProduto(req, res) {
     const id = req.params.id
 
-    try {
+    try { 
         const produtoDeletado = await negocio.deletarProduto(id)
         res.status(200).json(produtoDeletado)
     } catch (error) {
@@ -143,6 +172,5 @@ module.exports = {
     buscarProdutoPorId,
     atualizarProduto,
     deletarProduto,
-    atualizarImagemProduto
-    
+     
 }

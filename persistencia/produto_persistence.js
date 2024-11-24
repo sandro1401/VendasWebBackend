@@ -15,7 +15,7 @@ async function addProduto(produto) {
             produto.usuarioId, produto.imagem_url]
         const produtos = await client.query(sql, values)
 
-        // console.log("teste", Produtos.rows[0])  
+         console.log("teste", produtos.rows[0])  
         //client.release()
         client.end()
         return produtos.rows[0]
@@ -79,37 +79,75 @@ async function buscarProdutoPorId(id) {
     } catch (error) { throw error }
 }
 
-// Update
+// Atualizar Produto
 async function atualizarProduto(id, produto) {
-    //const client = await connect()
-    const client = new Client(conexao)
-    client.connect()
-    try {
-        const sql = `UPDATE produto SET nome = $1, descricao = $2, preco = $3, categoriaId = $4, 
-        usuarioId = $5, imagem_url = $6 WHERE id = $7 RETURNING *`
-        const values = [produto.nome, produto.descricao, produto.preco, produto.categoriaId, produto.usuarioId, produto.imagem_url, id]
-        const ProdutoAtualizado = await client.query(sql, values)
+    const client = new Client(conexao);
+    client.connect();
 
-        client.end()
-        return ProdutoAtualizado.rows[0]
-    } catch (error) { throw error }
-}
-// Atualizar fotos
-async function atualizarImagemProduto(id, produto) {
-    // const client = await connect()
-    const client = new Client(conexao)
-    client.connect()
     try {
-        const sql = `UPDATE  produto SET imagem_url = $1 WHERE id = $2 RETURNING *`
-        const value = [produto.imagem_url, id]
+        let sql;
+        let values;
+        console.log(produto.imagem_url)
 
-        const imagemProduto = await client.query(sql, value)
-        client.release;
-        return imagemProduto.rows[0]
+        if (produto.imagem_url) {
+            sql = `UPDATE produto 
+                   SET nome = $1, descricao = $2, preco = $3, categoriaId = $4, 
+                       usuarioId = $5, imagem_url = $6 
+                   WHERE id = $7 RETURNING *`;
+            values = [produto.nome, produto.descricao, produto.preco, produto.categoriaId, 
+                      produto.usuarioId, produto.imagem_url, id];
+        } else {
+            sql = `UPDATE produto 
+                   SET nome = $1, descricao = $2, preco = $3, categoriaId = $4, 
+                       usuarioId = $5 
+                   WHERE id = $6 RETURNING *`;
+            values = [produto.nome, produto.descricao, produto.preco, produto.categoriaId, 
+                      produto.usuarioId, id];
+        }
+
+        const result = await client.query(sql, values);
+        client.end();
+        return result.rows[0];
     } catch (error) {
+        client.end();
         throw error;
     }
 }
+
+
+
+
+
+// async function atualizarProduto(id, produto) {
+//     //const client = await connect()
+//     const client = new Client(conexao)
+//     client.connect()
+//     try {
+//         const sql = `UPDATE produto SET nome = $1, descricao = $2, preco = $3, categoriaId = $4, 
+//         usuarioId = $5, imagem_url = $6 WHERE id = $7 RETURNING *`
+//         const values = [produto.nome, produto.descricao, produto.preco, produto.categoriaId, produto.usuarioId, produto.imagem_url, id]
+//         const ProdutoAtualizado = await client.query(sql, values)
+
+//         client.end()
+//         return ProdutoAtualizado.rows[0]
+//     } catch (error) { throw error }
+// }
+// // Atualizar fotos
+// async function atualizarImagemProduto(id, produto) {
+//     // const client = await connect()
+//     const client = new Client(conexao)
+//     client.connect()
+//     try {
+//         const sql = `UPDATE  produto SET imagem_url = $1 WHERE id = $2 RETURNING *`
+//         const value = [produto.imagem_url, id]
+
+//         const imagemProduto = await client.query(sql, value)
+//         client.release;
+//         return imagemProduto.rows[0]
+//     } catch (error) {
+//         throw error;
+//     }
+// }
 
 // Delete
 async function deletarProduto(id) {
@@ -135,6 +173,6 @@ module.exports = {
     buscarProdutoPorId,
     atualizarProduto,
     deletarProduto,
-    atualizarImagemProduto,
+    
     
 }

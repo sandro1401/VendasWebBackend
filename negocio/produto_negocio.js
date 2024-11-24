@@ -92,8 +92,10 @@ async function buscarProdutoPorId(id) {
     } catch (error) { throw error }
 }
 
-// Update
+
+//Update
 async function atualizarProduto(id, produtos) {
+    console.log(produtos)
     if (produtos && produtos.nome && produtos.descricao && produtos.preco 
         && produtos.categoriaId && produtos.usuarioId && produtos.imagem_url ) {
         const produtoAtualizado = await persistencia.atualizarProduto(id, produtos)
@@ -113,24 +115,24 @@ async function atualizarProduto(id, produtos) {
         throw erro
     }
 }
-async function atualizarImagemProduto(id, produto) {
-    if (produto && produto.imagem_url) {
-            const atualizarProduto = await persistencia.atualizarImagemProduto(id, produto);
+// async function atualizarImagemProduto(id, produto) {
+//     if (produto && produto.imagem_url) {
+//             const atualizarProduto = await persistencia.atualizarImagemProduto(id, produto);
 
-            if (!atualizarProduto) {
-                let erro = new Error();
-                erro.message = "produto não encontrada.";
-                erro.status = 404;
-                throw erro;
-            }
-            return atualizarproduto;
-        } else {
-            let erro = new Error();
-            erro.message = "Todos os campos são obrigatórios.";
-            erro.status = 400;
-            throw erro;
-        }
-}
+//             if (!atualizarProduto) {
+//                 let erro = new Error();
+//                 erro.message = "produto não encontrada.";
+//                 erro.status = 404;
+//                 throw erro;
+//             }
+//             return atualizarproduto;
+//         } else {
+//             let erro = new Error();
+//             erro.message = "Todos os campos são obrigatórios.";
+//             erro.status = 400;
+//             throw erro;
+//         }
+// }
 
 // Delete
 async function deletarProduto(id) {
@@ -156,6 +158,6 @@ module.exports = {
     buscarProdutoPorCategoria,
     buscarProdutoPorId,
     atualizarProduto,
-    atualizarImagemProduto,
+   
     deletarProduto
 }
