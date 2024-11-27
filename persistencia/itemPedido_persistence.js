@@ -8,7 +8,7 @@ const connect = require("../db");
 async function addItemPedido(pedidoId,itemPedido) {
     const client = await connect()
     // const client = new Client(conexao)
-    client.connect()
+    // client.connect()
    
     try {
         const sql = `INSERT INTO itemPedido(quantidade, preco_unitario, pedidoId, produtoId, concluido
@@ -28,7 +28,7 @@ async function addItemPedido(pedidoId,itemPedido) {
 async function buscarItemPedido() {
     const client = await connect()
     // const client = new Client(conexao)
-    client.connect()
+    // client.connect()
     try {
         const sql = `SELECT * FROM itemPedido`
         const itemPedido = await client.query(sql)
@@ -41,7 +41,7 @@ async function buscarItemPedido() {
 async function buscarItemPedidoPorPedidoId(pedidoId) {
     const client = await connect()
     // const client = new Client(conexao)
-    client.connect()
+    // client.connect()
     try {
         const sql = `SELECT * FROM itemPedido WHERE pedidoId = $1`
         const values = [pedidoId]
@@ -54,7 +54,7 @@ async function buscarItemPedidoPorPedidoId(pedidoId) {
 async function buscarItemPedidoPorUsuarioId(usuarioId) {
     const client = await connect()
     // const client = new Client(conexao)
-    client.connect()
+    // client.connect()
     try {
         const sql = `SELECT * FROM itemPedido WHERE usuarioId = $1`
         const values = [usuarioId]
@@ -85,7 +85,7 @@ async function buscarItemPedidoPorProdutoId(produtoId) {
 async function buscarItemPedidoPorId(id) {
     const client = await connect()
     // const client = new Client(conexao)
-    client.connect()
+    // client.connect()
     try {
         const sql = `SELECT * FROM itemPedido WHERE id = $1`
         const values = [id]
@@ -150,7 +150,7 @@ async function deletarItemPedido(id) {
     
     const client = await connect()
     // const client = new Client(conexao)
-     client.connect()
+    //  client.connect()
     try {
         const sql = `DELETE FROM itemPedido WHERE id = $1 RETURNING *`
         const values = [id]
