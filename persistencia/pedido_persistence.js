@@ -1,12 +1,12 @@
-const { Client} = require('pg')
-const { conexao } = require('./conexao')
+// const { Client} = require('pg')
+// const { conexao } = require('./conexao')
 const { query } = require('express')
-
+const connect = require("../db");
 
 // Create
 async function addPedido(usuarioId,pedido) {
-    //const client = await connect()
-    const client = new Client(conexao)
+    const client = await connect()
+    // const client = new Client(conexao)
     client.connect()
    
    
@@ -48,8 +48,8 @@ async function addPedido(usuarioId,pedido) {
 
 // Read
 async function buscarPedido() {
-    //const client = await connect()
-    const client = new Client(conexao)
+    const client = await connect()
+    // const client = new Client(conexao)
     client.connect()
     try {
         const sql = `SELECT * FROM pedido`
@@ -61,8 +61,8 @@ async function buscarPedido() {
 }
 
 async function buscarPedidoPorUsuarioId(usuarioId) {
-    //const client = await connect()
-    const client = new Client(conexao)
+    const client = await connect()
+    // const client = new Client(conexao)
     client.connect()
     try {
         const sql = `SELECT usuario.id, pedido. * FROM pedido 
@@ -78,6 +78,7 @@ async function buscarPedidoPorUsuarioId(usuarioId) {
 
 async function buscarPedidoPorProdutoId(produtoId) {
     const client = await connect()
+    client.connect()
 
     try {
         const sql = `SELECT * FROM Pedido WHERE ProdutoId = $1`
@@ -91,7 +92,8 @@ async function buscarPedidoPorProdutoId(produtoId) {
 
 
 async function buscarPedidoPorId(id) {
-    const client = new Client(conexao)
+    // const client = new Client(conexao)
+    const client = await connect()
     client.connect()
 
     try {
@@ -134,7 +136,8 @@ async function buscarPedidoPorId(id) {
 }
 
 async function atualizarPedido(id, pedido) {
-  const client = new Client(conexao);
+  // const client = new Client(conexao);
+  const client = await connect()
   client.connect();
 
   try {
@@ -299,7 +302,7 @@ async function atualizarPedido(id, pedido) {
   
 // Delete
 async function deletarPedido(id) {
-  const client = new Client(conexao);
+  // const client = new Client(conexao);
   client.connect();
   console.log(id)
 

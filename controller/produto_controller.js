@@ -8,8 +8,11 @@ async function addProduto(req, res) {
     const produto = req.body
 
   
-    if (req.processedImages && req.processedImages.length > 0) {
-        produto.imagem_url = req.processedImages; // Salva o array de imagens no produto
+    // if (req.processedImages && req.processedImages.length > 0) {
+    //     produto.imagem_url = req.processedImages; // Salva o array de imagens no produto
+    // }
+    if(req.files){
+        produto.imagem_url =req.files.map(file => file.path);
     }
 
     try {
@@ -91,9 +94,12 @@ async function atualizarProduto(req, res) {
     console.log(produto)
 
     // Verifica se há arquivos no upload
-    if (req.processedImages && req.processedImages.length > 0) {
-        produto.imagem_url = req.processedImages;}
-        console.log(produto.imagem_url)
+    // if (req.processedImages && req.processedImages.length > 0) {
+    //     produto.imagem_url = req.processedImages;}
+    //     console.log(produto.imagem_url)
+    if(req.files){
+        produto.imagem_url =req.files.map(file => file.path);
+    }
 
     try {
         const produtoAtualizado = await negocio.atualizarProduto(id, produto);

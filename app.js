@@ -7,12 +7,14 @@ const rotaItemPedido = require('./rota/itemPedido_rota')
 const loginController = require('./controller/login_controller');
 const cors = require('cors')
 const app = express()
+require("dotenv").config();
 
-//const cors = require('cors');
-const port = 3000;
+
+// const port = 3000;
+const port = process.env.PORT
 
 app.use('/uploads', express.static('uploads'));
-app.use(cors())
+app.use(cors({ origin: '*' }));
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 

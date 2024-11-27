@@ -1,12 +1,13 @@
-const { Client} = require('pg')
-const { conexao } = require('./conexao')
+// const { Client} = require('pg')
+// const { conexao } = require('./conexao')
+const connect = require('../db');
 const { query } = require('express')
 
 
 // Create
 async function addCategoria(categoria) {
-    //const client = await connect()
-    const client = new Client(conexao)
+    const client = await connect()
+    // const client = new Client(conexao)
     client.connect()
    
     try {
@@ -24,8 +25,8 @@ async function addCategoria(categoria) {
 
 // Read
 async function buscarCategoria() {
-    //const client = await connect()
-    const client = new Client(conexao)
+    const client = await connect()
+    // const client = new Client(conexao)
     client.connect()
     try {
         const sql = `SELECT * FROM categoria`
@@ -37,8 +38,8 @@ async function buscarCategoria() {
 }
 
 async function buscarCategoriaPorNome(nome) {
-    //const client = await connect()
-    const client = new Client(conexao)
+    const client = await connect()
+    // const client = new Client(conexao)
     client.connect()
     try {
         const sql = `SELECT * FROM categoria WHERE nome = $1`
@@ -54,8 +55,8 @@ async function buscarCategoriaPorNome(nome) {
 
 
 async function buscarCategoriaPorId(id) {
-    //const client = await connect()
-    const client = new Client(conexao)
+    const client = await connect()
+    // const client = new Client(conexao)
     client.connect()
     try {
         const sql = `SELECT * FROM categoria WHERE id = $1`
@@ -69,8 +70,8 @@ async function buscarCategoriaPorId(id) {
 
 // Update
 async function atualizarCategoria(id, categoria) {
-    //const client = await connect()
-    const client = new Client(conexao)
+    const client = await connect()
+    // const client = new Client(conexao)
     client.connect()
     try {
         const sql = `UPDATE categoria SET nome = $1 WHERE id = $2 RETURNING *`
@@ -85,8 +86,8 @@ async function atualizarCategoria(id, categoria) {
 // Delete
 async function deletarCategoria(id) {
     
-    //const client = await connect()
-    const client = new Client(conexao)
+    const client = await connect()
+    // const client = new Client(conexao)
     client.connect()
     try {
         const sql = `DELETE FROM categoria WHERE id = $1 RETURNING *`

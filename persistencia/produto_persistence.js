@@ -1,12 +1,13 @@
-const { Client} = require('pg')
-const { conexao } = require('./conexao')
+// const { Client} = require('pg')
+// const { conexao } = require('./conexao')
+const connect = require("../db");
 const { query } = require('express')
 
 
 // Create
 async function addProduto(produto) {
-    //const client = await connect()
-    const client = new Client(conexao)
+    const client = await connect()
+    // const client = new Client(conexao)
     client.connect()
    
     try {
@@ -25,8 +26,8 @@ async function addProduto(produto) {
 
 // Read
 async function buscarProduto() {
-    //const client = await connect()
-    const client = new Client(conexao)
+    const client = await connect()
+    // const client = new Client(conexao)
     client.connect()
     try {
         const sql = `SELECT * FROM produto`
@@ -38,8 +39,8 @@ async function buscarProduto() {
 }
 
 async function buscarProdutoPorNome(nome) {
-    //const client = await connect()
-    const client = new Client(conexao)
+    const client = await connect()
+    // const client = new Client(conexao)
     client.connect()
     try {
         const sql = `SELECT * FROM produto WHERE nome = $1`
@@ -53,7 +54,7 @@ async function buscarProdutoPorNome(nome) {
 
 async function buscarProdutoPorCategoria(categoriaId) {
     const client = await connect()
-
+    client.connect()
     try {
         const sql = `SELECT * FROM produto WHERE categoriaId = $1`
         const values = [categoriaId]
@@ -66,8 +67,8 @@ async function buscarProdutoPorCategoria(categoriaId) {
 
 
 async function buscarProdutoPorId(id) {
-    //const client = await connect()
-    const client = new Client(conexao)
+    const client = await connect()
+    // const client = new Client(conexao)
     client.connect()
     try {
         const sql = `SELECT * FROM Produto WHERE id = $1`
@@ -81,7 +82,8 @@ async function buscarProdutoPorId(id) {
 
 // Atualizar Produto
 async function atualizarProduto(id, produto) {
-    const client = new Client(conexao);
+    // const client = new Client(conexao);
+    const client = await connect()
     client.connect();
 
     try {
@@ -152,8 +154,8 @@ async function atualizarProduto(id, produto) {
 // Delete
 async function deletarProduto(id) {
     
-    //const client = await connect()
-    const client = new Client(conexao)
+    const client = await connect()
+    // const client = new Client(conexao)
     client.connect()
     try {
         const sql = `DELETE FROM produto WHERE id = $1 RETURNING *`

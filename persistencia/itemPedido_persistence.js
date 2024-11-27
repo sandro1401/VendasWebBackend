@@ -1,12 +1,13 @@
-const { Client} = require('pg')
-const { conexao } = require('./conexao')
+// const { Client} = require('pg')
+// const { conexao } = require('./conexao')
 const { query } = require('express')
+const connect = require("../db");
 
 
 // Create
 async function addItemPedido(pedidoId,itemPedido) {
-    //const client = await connect()
-    const client = new Client(conexao)
+    const client = await connect()
+    // const client = new Client(conexao)
     client.connect()
    
     try {
@@ -25,8 +26,8 @@ async function addItemPedido(pedidoId,itemPedido) {
 
 // Read
 async function buscarItemPedido() {
-    //const client = await connect()
-    const client = new Client(conexao)
+    const client = await connect()
+    // const client = new Client(conexao)
     client.connect()
     try {
         const sql = `SELECT * FROM itemPedido`
@@ -38,8 +39,8 @@ async function buscarItemPedido() {
 }
 
 async function buscarItemPedidoPorPedidoId(pedidoId) {
-    //const client = await connect()
-    const client = new Client(conexao)
+    const client = await connect()
+    // const client = new Client(conexao)
     client.connect()
     try {
         const sql = `SELECT * FROM itemPedido WHERE pedidoId = $1`
@@ -51,8 +52,8 @@ async function buscarItemPedidoPorPedidoId(pedidoId) {
     } catch (error) { throw error }
 }
 async function buscarItemPedidoPorUsuarioId(usuarioId) {
-    //const client = await connect()
-    const client = new Client(conexao)
+    const client = await connect()
+    // const client = new Client(conexao)
     client.connect()
     try {
         const sql = `SELECT * FROM itemPedido WHERE usuarioId = $1`
@@ -82,8 +83,8 @@ async function buscarItemPedidoPorProdutoId(produtoId) {
 
 
 async function buscarItemPedidoPorId(id) {
-    //const client = await connect()
-    const client = new Client(conexao)
+    const client = await connect()
+    // const client = new Client(conexao)
     client.connect()
     try {
         const sql = `SELECT * FROM itemPedido WHERE id = $1`
@@ -97,7 +98,7 @@ async function buscarItemPedidoPorId(id) {
 
 // Update
 async function atualizarItemPedido(id, itemPedido) {
-    const client = new Client(conexao);
+    // const client = new Client(conexao);
     await client.connect();
     
     try {
@@ -147,9 +148,9 @@ async function atualizarItemPedido(id, itemPedido) {
 // Delete
 async function deletarItemPedido(id) {
     
-    //const client = await connect()
-    const client = new Client(conexao)
-    client.connect()
+    const client = await connect()
+    // const client = new Client(conexao)
+     client.connect()
     try {
         const sql = `DELETE FROM itemPedido WHERE id = $1 RETURNING *`
         const values = [id]
