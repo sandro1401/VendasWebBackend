@@ -116,7 +116,21 @@ async function atualizarProduto(id, produto) {
     }
 }
 
+async function atualizarImagemProduto(id,produto) {
+    const client = await connect()
+    try{
+        const sql = 'UPDATE produto set imagem_url = $1 where id = $2 RETURNING *'
+        const value = [produto.imagem_url, id]
 
+        const imgProduto = await client.query(sql,value)
+        client.release;
+        return imgProduto.rows[0]
+
+    }catch(error){
+        throw error;
+    }
+    
+}
 
 
 // Delete
@@ -142,6 +156,7 @@ module.exports = {
     buscarProdutoPorCategoria,
     buscarProdutoPorId,
     atualizarProduto,
+    atualizarImagemProduto,
     deletarProduto,
     
     
