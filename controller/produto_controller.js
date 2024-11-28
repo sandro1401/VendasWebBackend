@@ -6,11 +6,13 @@ const pedido = require('../controller/pedido_controller')
 // Create
 async function addProduto(req, res) {
     const produto = req.body
-
+console.log("body recebido", req.body)
+console.log("Files recebidos: ", req.files)
   
     // if (req.processedImages && req.processedImages.length > 0) {
     //     produto.imagem_url = req.processedImages; // Salva o array de imagens no produto
     // }
+
     if(req.files){
         produto.imagem_url =req.files.map(file => file.path);
     }
