@@ -1,17 +1,28 @@
 const multer = require('multer');
+const { CloudinaryStorage } = require('multer-storage-cloudinary');
+const cloudinary = require('./cloudinaryConfig')
+
 const path = require('path');
 
 // Configuração do storage do multer
-const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        cb(null, 'uploads/'); // Pasta onde os arquivos serão armazenados
-    },
-    filename: function (req, file, cb) {
-        const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
-        cb(null, uniqueSuffix + path.extname(file.originalname)); // Nome do arquivo salvo
-    }
-});
+// const storage = multer.diskStorage({
+//     destination: function (req, file, cb) {
+//         cb(null, 'uploads/'); // Pasta onde os arquivos serão armazenados
+//     },
+//     filename: function (req, file, cb) {
+//         const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
+//         cb(null, uniqueSuffix + path.extname(file.originalname)); // Nome do arquivo salvo
+//     }
+// });
 
+const storage = new CloudinaryStorage({
+    cloudinary: cloudinary,
+    params: {
+        folder: 'uploads', // Nome da pasta no Cloudinary
+        format: async (req, file) => file.mimetype.split('/')[1], // Define o formato com base no mimetype
+        public_id: (req, file) => `${Date.now()}-${file.originalname.split('.')[0]}`, // Nome único
+    },
+});
 // Configuração do multer para aceitar apenas imagens
 const upload = multer({
     storage: storage,
