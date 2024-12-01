@@ -1,13 +1,14 @@
-const { Client} = require('pg')
-const { conexao } = require('./conexao')
+// const { Client} = require('pg')
+// const { conexao } = require('./conexao')
+const connect = require('../db');
 const { query } = require('express')
 
 
 // Create
 async function addCategoria(categoria) {
-    //const client = await connect()
-    const client = new Client(conexao)
-    client.connect()
+    const client = await connect()
+    // const client = new Client(conexao)
+    // client.connect()
    
     try {
         const sql = `INSERT INTO Categoria(nome) VALUES($1) RETURNING *`
@@ -24,9 +25,9 @@ async function addCategoria(categoria) {
 
 // Read
 async function buscarCategoria() {
-    //const client = await connect()
-    const client = new Client(conexao)
-    client.connect()
+    const client = await connect()
+    // const client = new Client(conexao)
+    // client.connect()
     try {
         const sql = `SELECT * FROM categoria`
         const categoria = await client.query(sql)
@@ -37,9 +38,9 @@ async function buscarCategoria() {
 }
 
 async function buscarCategoriaPorNome(nome) {
-    //const client = await connect()
-    const client = new Client(conexao)
-    client.connect()
+    const client = await connect()
+    // const client = new Client(conexao)
+    // client.connect()
     try {
         const sql = `SELECT * FROM categoria WHERE nome = $1`
         const values = [nome]
@@ -54,9 +55,9 @@ async function buscarCategoriaPorNome(nome) {
 
 
 async function buscarCategoriaPorId(id) {
-    //const client = await connect()
-    const client = new Client(conexao)
-    client.connect()
+    const client = await connect()
+    // const client = new Client(conexao)
+    // client.connect()
     try {
         const sql = `SELECT * FROM categoria WHERE id = $1`
         const values = [id]
@@ -69,9 +70,9 @@ async function buscarCategoriaPorId(id) {
 
 // Update
 async function atualizarCategoria(id, categoria) {
-    //const client = await connect()
-    const client = new Client(conexao)
-    client.connect()
+    const client = await connect()
+    // const client = new Client(conexao)
+    // client.connect()
     try {
         const sql = `UPDATE categoria SET nome = $1 WHERE id = $2 RETURNING *`
         const values = [categoria.nome, id]
@@ -85,9 +86,9 @@ async function atualizarCategoria(id, categoria) {
 // Delete
 async function deletarCategoria(id) {
     
-    //const client = await connect()
-    const client = new Client(conexao)
-    client.connect()
+    const client = await connect()
+    // const client = new Client(conexao)
+    // client.connect()
     try {
         const sql = `DELETE FROM categoria WHERE id = $1 RETURNING *`
         const values = [id]

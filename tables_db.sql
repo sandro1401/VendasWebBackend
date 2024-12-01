@@ -25,7 +25,11 @@ CREATE TABLE itemPedido
  preco_unitario FLOAT NOT NULL,  
  pedidoId int NOT NULL,    
  produtoId INT not null,
+<<<<<<< HEAD
 concluido boolean default FALSE
+=======
+	concluido boolean default FALSE
+>>>>>>> 6417d32b7f4eaf25c8c46b9b92c67fc6a00c9109
 );
 
 

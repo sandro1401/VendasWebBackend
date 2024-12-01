@@ -1,13 +1,13 @@
-const { Client} = require('pg')
-const { conexao } = require('./conexao')
+// const { Client} = require('pg')
+// const { conexao } = require('./conexao')
 const { query } = require('express')
-
+const connect = require("../db");
 
 // Create
 async function addUsuario(usuario) {
-    //const client = await connect()
-    const client = new Client(conexao)
-    client.connect()
+    const client = await connect()
+    // const client = new Client(conexao)
+    // client.connect()
    
     try {
         const sql = `INSERT INTO usuario(nome, cpf, email, senha,
@@ -29,9 +29,9 @@ async function addUsuario(usuario) {
 
 // Read
 async function buscarUsuario() {
-    //const client = await connect()
-    const client = new Client(conexao)
-    client.connect()
+    const client = await connect()
+    // const client = new Client(conexao)
+    // client.connect()
     try {
         const sql = `SELECT * FROM usuario`
         const usuario = await client.query(sql)
@@ -42,9 +42,9 @@ async function buscarUsuario() {
 }
 
 async function buscarUsuarioPorNome(nome) {
-    //const client = await connect()
-    const client = new Client(conexao)
-    client.connect()
+    const client = await connect()
+    // const client = new Client(conexao)
+    // client.connect()
     try {
         const sql = `SELECT * FROM usuario WHERE nome = $1`
         const values = [nome]
@@ -57,7 +57,7 @@ async function buscarUsuarioPorNome(nome) {
 
 async function buscarUsuarioPorCpf(cpf) {
     const client = await connect()
-
+    // client.connect()
     try {
         const sql = `SELECT * FROM usuario WHERE cpf = $1`
         const values = [cpf]
@@ -69,9 +69,9 @@ async function buscarUsuarioPorCpf(cpf) {
 }
 
 async function buscarUsuarioPorEmail(email) {
-    //const client = await connect()
-    const client = new Client(conexao)
-    client.connect()
+    const client = await connect()
+    // const client = new Client(conexao)
+    // client.connect()
     try {
         const sql = `SELECT * FROM usuario WHERE email = $1`
         const values = [email]
@@ -83,9 +83,9 @@ async function buscarUsuarioPorEmail(email) {
 }
 
 async function buscarUsuarioPorId(id) {
-    //const client = await connect()
-    const client = new Client(conexao)
-    client.connect()
+    const client = await connect()
+    // const client = new Client(conexao)
+    // client.connect()
     try {
         const sql = `SELECT * FROM usuario WHERE id = $1`
         const values = [id]
@@ -98,9 +98,9 @@ async function buscarUsuarioPorId(id) {
 
 // Update
 async function atualizarUsuario(id, usuario) {
-    //const client = await connect()
-    const client = new Client(conexao)
-    client.connect()
+    const client = await connect()
+    // const client = new Client(conexao)
+    // client.connect()
     try {
         const sql = `UPDATE usuario SET nome = $1, cpf = $2, email = $3, senha = $4, cep = $5, logradouro = $6, unidade = $7, bairro = $8, cidade = $9, estado = $10, 
         dt_nascimento = $11, sexo = $12, telefone = $13, tipo = $14 WHERE id = $15 RETURNING *`
@@ -118,9 +118,9 @@ async function atualizarUsuario(id, usuario) {
 // Delete
 async function deletarUsuario(id) {
     
-    //const client = await connect()
-    const client = new Client(conexao)
-    client.connect()
+    const client = await connect()
+    // const client = new Client(conexao)
+    // client.connect()
     try {
         const sql = `DELETE FROM usuario WHERE id = $1 RETURNING *`
         const values = [id]

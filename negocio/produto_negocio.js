@@ -92,8 +92,10 @@ async function buscarProdutoPorId(id) {
     } catch (error) { throw error }
 }
 
-// Update
+
+//Update
 async function atualizarProduto(id, produtos) {
+    console.log(produtos)
     if (produtos && produtos.nome && produtos.descricao && produtos.preco 
         && produtos.categoriaId && produtos.usuarioId && produtos.imagem_url ) {
         const produtoAtualizado = await persistencia.atualizarProduto(id, produtos)
@@ -157,5 +159,6 @@ module.exports = {
     buscarProdutoPorId,
     atualizarProduto,
     atualizarImagemProduto,
+   
     deletarProduto
 }

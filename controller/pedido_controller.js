@@ -87,7 +87,8 @@ async function buscarPedidoPorId(req, res) {
 async function atualizarPedido(req, res) {
     const id = req.params.id
     const pedido = req.body
-
+    // console.log(id)
+    // console.log(pedido)
     try {
         const pedidoAtualizado = await negocio.atualizarPedido(id, pedido)
         res.status(200).json(pedidoAtualizado)
