@@ -1,10 +1,10 @@
 
 const conexao = {
     host: 'localhost',
-    port: 5433,
+    port: 5432,
     database: 'VendasWeb',
     user: 'postgres',
-    password: '123456'
+    password: 'juan1401'
 }
 
 module.exports = {

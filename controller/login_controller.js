@@ -1,6 +1,7 @@
 const loginService = require('../service/auth/login_service')
 function realizarLogin(req, res) {
      const user = req.body;
+   
      try{ 
         const token = loginService.verificarLogin(user);
         res.status(201).json({token:token});
@@ -8,6 +9,11 @@ function realizarLogin(req, res) {
      catch(err) {
         res.status(401).json(err);
      }
+     
+}
+function validarUsuario(token){
+   const usuario = loginService.validarToken(token)
+   return usuario
 }
 
  
@@ -15,5 +21,7 @@ function realizarLogin(req, res) {
 
 
 module.exports = {
-    realizarLogin
+    realizarLogin,
+    validarUsuario
+
 }

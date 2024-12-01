@@ -5,6 +5,7 @@ const router = express.Router()
 
 
 router.get('/', controller.login)
+router.get('/usuario/', controller.validarUsuario)
 
 
 module.exports = router

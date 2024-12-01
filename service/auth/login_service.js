@@ -2,12 +2,12 @@ const jwt = require('jsonwebtoken');
 // const bcrypt = require('bcrypt');
 
 const CHAVE_SECRETA = "Vendas@2024";
-const userAdmin = { 
+// const userAdmin = { 
    
-    nome: "admin",
-    email: "admin@email.com",
-    senha: "12345"
-}
+//     nome: "admin",
+//     email: "admin@email.com",
+//     senha: "12345"
+// }
 
 function verificarLogin(user) {
     
