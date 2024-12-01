@@ -11,17 +11,29 @@ function realizarLogin(req, res) {
      }
      
 }
-function validarUsuario(token){
-   const usuario = loginService.validarToken(token)
-   return usuario
-}
+// function validarUsuario(token){
+//    const usuario = loginService.validarToken(token)
+//    return usuario
+// }
 
+function obterUsuarioLogado(req, res) {
+   try {
+     const token = req.headers.authorization?.split(' ')[1];
+     if (!token) {
+       return res.status(401).json({ message: 'Token não fornecido' });
+     }
  
+     const usuario = loginService.validarToken(token);
+     res.status(200).json(usuario);
+   } catch (error) {
+     res.status(401).json({ message: error.message });
+   }
+ }
 
 
 
 module.exports = {
     realizarLogin,
-    validarUsuario
+   obterUsuarioLogado
 
 }

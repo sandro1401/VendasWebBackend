@@ -44,7 +44,7 @@ function login(usuario) {
   }
   // Nova função para gerar token
   function gerarToken(usuario) {
-    const payload = { id: usuario.id, nome: usuario.nome };
+    const payload = { id: usuario.id, nome: usuario.nome, tipo: usuario.tipo };
     return jwt.sign(payload, CHAVE_SECRETA, { expiresIn: '1h' }); // Token válido por 1 hora
     
   }
