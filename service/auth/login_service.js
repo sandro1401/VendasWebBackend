@@ -9,16 +9,16 @@ const CHAVE_SECRETA = "Vendas@2024";
 //     senha: "12345"
 // }
 
-function verificarLogin(user) {
+// function verificarLogin(user) {
     
    
-        const token = jwt.sign({id:user.id, nome:user.nome},
-            CHAVE_SECRETA, { expiresIn: '1h' })
+//         const token = jwt.sign({id:user.id, nome:user.nome},
+//             CHAVE_SECRETA, { expiresIn: '1h' })
            
-        return token;
+//         return token;
     
 
-}
+// }
 
 function verificarToken(token) {
     try{
@@ -33,6 +33,16 @@ function verificarToken(token) {
         throw {id:401, message:"Token invalido"};
     }
 }
+
+function verificarLogin(user) {
+  if (user) { // Adicione aqui a lógica de validação do usuário
+    const token = gerarToken(user); // Gera o token com os dados corretos
+    return token;
+  } else {
+    throw new Error('Credenciais inválidas');
+  }
+}
+
 function login(usuario) {
     // Lógica de verificação de credenciais...
     if (usuario == usuario.email && usuario == usuario.senha) {
@@ -44,21 +54,50 @@ function login(usuario) {
   }
   // Nova função para gerar token
   function gerarToken(usuario) {
-    const payload = { id: usuario.id, nome: usuario.nome, tipo: usuario.tipo };
-    return jwt.sign(payload, CHAVE_SECRETA, { expiresIn: '1h' }); // Token válido por 1 hora
-    
+    const payload = { 
+      id: usuario.id, 
+      nome: usuario.nome, 
+      email: usuario.email 
+    };
+  
+    return jwt.sign(payload, CHAVE_SECRETA, { expiresIn: '1h' });
   }
+  
  
   // Nova função para validar token
+  // function validarToken(token) {
+  //   try {
+  //     const payload = jwt.verify(token, CHAVE_SECRETA);
+  //     // Retorne as informações do usuário baseadas no payload
+  //     console.log(payload.nome)
+  //     return { id: payload.id, nome: payload.nome, email: payload.email };
+  //   } catch (error) {
+  //     throw new Error('Token inválido ou expirado');
+  //   }
+  // }
+
   function validarToken(token) {
     try {
       const payload = jwt.verify(token, CHAVE_SECRETA);
-      // Retorne as informações do usuário baseadas no payload
-      return { id: payload.id, nome: payload.nome, email: payload.email };
+  
+      // Log para depuração
+      console.log('Payload decodificado:', payload);
+  
+      if (!payload.id || !payload.nome || !payload.email) {
+        throw new Error('Token não contém as informações necessárias');
+      }
+  
+      return { 
+        id: payload.id, 
+        nome: payload.nome, 
+        email: payload.email 
+      };
     } catch (error) {
+      console.error('Erro ao validar o token:', error.message);
       throw new Error('Token inválido ou expirado');
     }
   }
+  
 module.exports = {
     verificarLogin,
     verificarToken,

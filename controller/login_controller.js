@@ -1,4 +1,5 @@
 const loginService = require('../service/auth/login_service')
+
 function realizarLogin(req, res) {
      const user = req.body;
    
@@ -26,6 +27,7 @@ function obterUsuarioLogado(req, res) {
      const usuario = loginService.validarToken(token);
      res.status(200).json(usuario);
    } catch (error) {
+    console.error('Erro ao obter usuário logado:', error.message);
      res.status(401).json({ message: error.message });
    }
  }

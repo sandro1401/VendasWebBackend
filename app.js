@@ -24,6 +24,7 @@ app.use("/api/produto", rotaProduto);
 app.use("/api/pedido", rotaPedido);
 app.use("/api/itemPedido", rotaItemPedido);
 app.post("/api/login", loginController.realizarLogin);
+app.get("/api/login/usuario", loginController.obterUsuarioLogado)
 
 
 app.listen(port, () => {
