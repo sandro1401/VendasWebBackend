@@ -67,7 +67,7 @@ function login(usuario) {
       nome: usuario.nome, 
       email: usuario.email 
     };
-  
+  console.log(payload)
     return jwt.sign(payload, CHAVE_SECRETA, { expiresIn: '1h' }); // Token válido por 1 hora
   }
   

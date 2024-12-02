@@ -28,7 +28,7 @@ async function realizarLogin(req, res) {
       }
 
       // Substitua por uma busca real ao banco de dados
-      const usuarioValido = await negocio.buscarUsuarioPorEmail(user)
+      const usuarioValido = await negocio.buscarUsuarioPorEmail(user.email)
          
       console.log(usuarioValido)
       if (user.email !== usuarioValido.email || user.senha !== usuarioValido.senha) {
