@@ -35,13 +35,15 @@ function verificarToken(token) {
 }
 
 function verificarLogin(user) {
-  if (user) { // Adicione aqui a lógica de validação do usuário
-    const token = gerarToken(user); // Gera o token com os dados corretos
-    return token;
-  } else {
-    throw new Error('Credenciais inválidas');
+  // Simulação de verificação do usuário (substitua pela lógica de autenticação)
+  if (!user.id || !user.nome || !user.email) {
+    throw new Error('Usuário inválido ou dados incompletos');
   }
+
+  const token = gerarToken(user); // Gera o token com os dados corretos
+  return token;
 }
+
 
 function login(usuario) {
     // Lógica de verificação de credenciais...
@@ -52,16 +54,23 @@ function login(usuario) {
       throw new Error('Credenciais inválidas');
     }
   }
+
+
   // Nova função para gerar token
   function gerarToken(usuario) {
+    if (!usuario.id || !usuario.nome || !usuario.email) {
+      throw new Error('Informações do usuário estão incompletas para gerar o token');
+    }
+  
     const payload = { 
       id: usuario.id, 
       nome: usuario.nome, 
       email: usuario.email 
     };
   
-    return jwt.sign(payload, CHAVE_SECRETA, { expiresIn: '1h' });
+    return jwt.sign(payload, CHAVE_SECRETA, { expiresIn: '1h' }); // Token válido por 1 hora
   }
+  
   
  
   // Nova função para validar token
