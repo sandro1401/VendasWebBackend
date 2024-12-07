@@ -2,23 +2,6 @@ const jwt = require('jsonwebtoken');
 // const bcrypt = require('bcrypt');
 
 const CHAVE_SECRETA = "Vendas@2024";
-// const userAdmin = { 
-   
-//     nome: "admin",
-//     email: "admin@email.com",
-//     senha: "12345"
-// }
-
-// function verificarLogin(user) {
-    
-   
-//         const token = jwt.sign({id:user.id, nome:user.nome},
-//             CHAVE_SECRETA, { expiresIn: '1h' })
-           
-//         return token;
-    
-
-// }
 
 function verificarToken(token) {
     try{
@@ -35,7 +18,6 @@ function verificarToken(token) {
 }
 
 function verificarLogin(user) {
-  // Simulação de verificação do usuário (substitua pela lógica de autenticação)
   if (!user.id || !user.nome || !user.email) {
     throw new Error('Usuário inválido ou dados incompletos');
   }
@@ -46,7 +28,7 @@ function verificarLogin(user) {
 
 
 function login(usuario) {
-    // Lógica de verificação de credenciais...
+   
     if (usuario == usuario.email && usuario == usuario.senha) {
       const token = this.gerarToken(usuario);
       return { token };
@@ -56,7 +38,6 @@ function login(usuario) {
   }
 
 
-  // Nova função para gerar token
   function gerarToken(usuario) {
     if (!usuario.id || !usuario.nome || !usuario.email) {
       throw new Error('Informações do usuário estão incompletas para gerar o token');
@@ -65,26 +46,15 @@ function login(usuario) {
     const payload = { 
       id: usuario.id, 
       nome: usuario.nome, 
-      email: usuario.email 
+      email: usuario.email,
+      tipo: usuario.tipo
     };
-  console.log(payload)
+ 
     return jwt.sign(payload, CHAVE_SECRETA, { expiresIn: '1h' }); // Token válido por 1 hora
   }
   
   
  
-  // Nova função para validar token
-  // function validarToken(token) {
-  //   try {
-  //     const payload = jwt.verify(token, CHAVE_SECRETA);
-  //     // Retorne as informações do usuário baseadas no payload
-  //     console.log(payload.nome)
-  //     return { id: payload.id, nome: payload.nome, email: payload.email };
-  //   } catch (error) {
-  //     throw new Error('Token inválido ou expirado');
-  //   }
-  // }
-
   function validarToken(token) {
     try {
       const payload = jwt.verify(token, CHAVE_SECRETA);
@@ -99,7 +69,8 @@ function login(usuario) {
       return { 
         id: payload.id, 
         nome: payload.nome, 
-        email: payload.email 
+        email: payload.email, 
+        tipo: payload.tipo
       };
     } catch (error) {
       console.error('Erro ao validar o token:', error.message);
