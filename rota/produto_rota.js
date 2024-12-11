@@ -12,7 +12,7 @@ router.get('/:id', controller.buscarProdutoPorId)
 router.get('/nome/:nome', controller.buscarProdutoPorNome)
 router.get('/categoria/:categoriaId', controller.buscarProdutoPorCategoria)
 
-router.put('/:id', controller.atualizarProduto)
+router.put('/:id',upload.array('imagem_url'), controller.atualizarProduto)
 router.put('/img-produto/id', upload.array('imagem_url', 10), controller.atualizarImagemProduto)
 router.delete('/:id', controller.deletarProduto)
 
